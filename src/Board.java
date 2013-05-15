@@ -1,10 +1,14 @@
+import java.util.Random;
+
 public class Board
 {
     private final int[][] m_solved;
     private int[][] m_toSolve;
     private final boolean[][] m_editable;
 
-    public Board(int[][] toSolve, final int[][] solved)
+    int m_lives;
+    
+    public Board(int[][] toSolve, final int[][] solved, int lives)
     {
     	m_solved = new int[9][9];
     	m_toSolve = new int[9][9];
@@ -20,6 +24,8 @@ public class Board
                 m_editable[i][j] = (m_toSolve[i][j] == 0);
             }
         }
+        
+        m_lives = lives;
     }
 
 	public boolean setNode(int x, int y, int val)
@@ -45,5 +51,39 @@ public class Board
         }
     }
 
+    int getLives()
+    {
+        return m_lives;
+    }
     
+    void setLives(int lives)
+    {
+        m_lives = lives;
+    }
+    
+    int addLife()
+    {
+        return ++m_lives;
+    }
+    
+    int removeLife()
+    {
+        return --m_lives;
+    }
+    
+    Vector3D getHint()
+    {
+        int x;
+        int y;
+        Random generator = new Random();
+        
+        do
+        {
+            x = generator.nextInt(9);
+            y = generator.nextInt(9);
+        }
+        while (m_toSolve[x][y] != 0);
+        
+        return new Vector3D(x, y, m_solved[x][y]);
+    }
 }
