@@ -91,6 +91,7 @@ public class Board
         }
         while (m_toSolve[x][y] != 0);
         
+        m_toSolve[x][y] = m_solved[x][y];
         return new Vector3D(x, y, m_solved[x][y]);
     }
     

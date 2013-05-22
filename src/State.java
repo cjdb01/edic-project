@@ -5,6 +5,7 @@ public class State
     
     public State()
     {
-        
+        m_pastState = pastState;
+        m_futureState = futureState;
     }
 }
