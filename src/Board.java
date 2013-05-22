@@ -39,6 +39,7 @@ public class Board
     {
         if (m_editable[x][y] == true && val >= 0 && val < 10)
         {
+            m_state = new State(m_state, null, m_lives, m_hints, new Vector3D(x, y, val));
             m_toSolve[x][y] = val;
         }
 
@@ -99,11 +100,27 @@ public class Board
     
     void undo()
     {
+        State temp = m_state;
+        Vector3D v;
         
+        m_state = m_state.getPast();
+        
+        v = m_state.getValue();
+        m_lives = m_state.getLives();
+        m_hints = m_state.getHints();
+        m_toSolve[v.getX()][v.getY()] = v.getZ();
+        m_state.setFuture(temp);
     }
     
     void redo()
     {
+        Vector3D v;
         
+        m_state = m_state.getFuture();
+        
+        v = m_state.getValue();
+        m_lives = m_state.getLives();
+        m_hints = m_state.getHints();
+        m_toSolve[v.getX()][v.getY()] = v.getZ();
     }
 }
