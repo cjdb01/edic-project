@@ -1,6 +1,15 @@
+# Compiled Binaries #
 *.class
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Eclipse Files #
+.project
+.settings
+.classpath
+
+# OS files #
+.DS_Store
