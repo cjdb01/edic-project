@@ -46,10 +46,9 @@ public class Board
         {
             for (int j = 0; j != 9; ++j)
             {
-                str.concat(Integer.toString(m_toSolve[i][j]) + " ");
+                str.append(Integer(m_toSolve[i][j]).toString() + " ");
             }
         }
-        return str;
     }
 
     int getLives()
