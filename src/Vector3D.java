@@ -15,9 +15,9 @@ import java.lang.Math;
  */
 public class Vector3D
 {
-	private double x;
-	private double y;
-	private double z;
+	private int x;
+	private int y;
+	private int z;
 	
 	/**
 	 * Vector3D constructor
@@ -25,7 +25,7 @@ public class Vector3D
 	 * @param y The y coordinate
 	 * @param z The z coordinate
 	 */
-	public Vector3D(double x, double y, double z)
+	public Vector3D(int x, int y, int z)
 	{
 		this.x = x;
 		this.y = y;
@@ -47,7 +47,7 @@ public class Vector3D
 	 * Gets the x-coordinate
 	 * @return x
 	 */
-	public double getX()
+	public int getX()
 	{
 		return x;
 	}
@@ -56,7 +56,7 @@ public class Vector3D
 	 * Gets the y-coordinate
 	 * @return y
 	 */
-	public double getY()
+	public int getY()
 	{
 		return y;
 	}
@@ -66,7 +66,7 @@ public class Vector3D
 	 * Gets the z-coordinate
 	 * @return z
 	 */
-	public double getZ()
+	public int getZ()
 	{
 		return z;
 	}
@@ -76,7 +76,7 @@ public class Vector3D
 	 * Sets the x-coordinate
 	 * @param x The value this.x shall be set to
 	 */
-	public void setX(double x)
+	public void setX(int x)
 	{
 		this.x = x;
 	}
@@ -86,7 +86,7 @@ public class Vector3D
 	 * Sets the y-coordinate
 	 * @param y The value this.y shall be set to
 	 */
-	public void setY(double y)
+	public void setY(int y)
 	{
 		this.y = y;
 	}
@@ -96,7 +96,7 @@ public class Vector3D
 	 * Sets the z-coordinate
 	 * @param z The value this.z shall be set to
 	 */
-	public void setZ(double z)
+	public void setZ(int z)
 	{
 		this.z = z;
 	}
@@ -105,7 +105,7 @@ public class Vector3D
 	 * Gets the size of the vector
 	 * @return sqrt(x^2 + y^2 + z^2)
 	 */
-	public double size()
+	public int size()
 	{
 		return Math.sqrt((x*x) + (y*y) + (z*z));
 	}
@@ -167,7 +167,7 @@ public class Vector3D
 	}
 
 	// Equivalent to C++ "*=" operator
-	public Vector3D multiply(final double scalar)
+	public Vector3D multiply(final int scalar)
 	{
 		x *= scalar;
 		y *= scalar;
@@ -260,7 +260,7 @@ public class Vector3D
 		return v;
 	}
 	
-	public static double dotProduct(final Vector3D lhs, final Vector3D rhs)
+	public static int dotProduct(final Vector3D lhs, final Vector3D rhs)
 	{
 		return ((lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z));
 	}
@@ -276,7 +276,7 @@ public class Vector3D
 		return result;
 	}
 
-	public static double angleBetween(final Vector3D lhs, final Vector3D rhs)
+	public static int angleBetween(final Vector3D lhs, final Vector3D rhs)
 	{
 		return Math.acos(dotProduct(lhs, rhs) / (lhs.size() * rhs.size()));
 	}
