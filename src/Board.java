@@ -6,6 +6,8 @@ public class Board
     private int[][] m_toSolve;
     private final boolean[][] m_editable;
 
+    //private State m_state;
+    
     int m_lives;
     
     public Board(int[][] toSolve, final int[][] solved, int lives)
@@ -14,8 +16,11 @@ public class Board
     	m_toSolve = new int[9][9];
     	m_editable = new boolean[9][9];
     	
-        System.arraycopy(toSolve, 0, m_toSolve, 0, 80);
-        System.arraycopy(m_solved, 0, m_solved, 0, 80);
+        for (int i = 0; i < 9; ++i)
+        {
+            System.arraycopy(toSolve[i], 0, m_toSolve[i], 0, 9);
+            System.arraycopy(solved[i], 0, m_solved[i], 0, 9);
+        }
 
         for (int i = 0; i != 9; ++i)
         {
@@ -91,9 +96,11 @@ public class Board
     
     void undo()
     {
+        
     }
     
     void redo()
     {
+        
     }
 }
