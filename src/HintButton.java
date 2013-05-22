@@ -1,31 +1,28 @@
-import java.awt.BorderLayout;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
-import javax.swing.JFrame;
-
-public class GUI {
+public class HintButton extends JButton implements ActionListener {
 	
+	private static final long serialVersionUID = 1L;
 	SudokuGrid grid;
-	HintButton hButton;
-	JFrame frame;
-	
-	public GUI(){
-        
-		grid = new SudokuGrid(Generator.constructBoard(Difficulty.MEDIUM));
-		hButton = new HintButton(grid);
-		frame = new JFrame("Sudoku Game");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
-		frame.add(grid, BorderLayout.CENTER);
-		frame.add(hButton, BorderLayout.SOUTH);
-		
-		frame.setResizable(false);
-		frame.setVisible(true);
-		frame.pack();
+	/**
+	 * Creates a new clear button.
+	 *
+	 * @param sp
+	 *            the sudoku panel the button is going to interact with
+	 */
+	public HintButton(SudokuGrid grid) {
+		super("Get Hint!");
+		this.grid = grid;
+		addActionListener(this);
 	}
     
-	public static void main(String[] args) {
-		new GUI();
+	/**
+	 * Called when the button is clicked.
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		grid.displayHint();
 	}
 }
