@@ -14,8 +14,8 @@ public class Board
     	m_toSolve = new int[9][9];
     	m_editable = new boolean[9][9];
     	
-        System.arraycopy(toSolve, 0, m_toSolve, 0, 81);
-        System.arraycopy(m_solved, 0, m_solved, 0, 81);
+        System.arraycopy(toSolve, 0, m_toSolve, 0, 80);
+        System.arraycopy(m_solved, 0, m_solved, 0, 80);
 
         for (int i = 0; i != 9; ++i)
         {
@@ -49,6 +49,7 @@ public class Board
                 str.concat(Integer.toString(m_toSolve[i][j]) + " ");
             }
         }
+        
         return str;
     }
 
@@ -86,5 +87,13 @@ public class Board
         while (m_toSolve[x][y] != 0);
         
         return new Vector3D(x, y, m_solved[x][y]);
+    }
+    
+    void undo()
+    {
+    }
+    
+    void redo()
+    {
     }
 }
