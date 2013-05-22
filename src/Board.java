@@ -6,7 +6,7 @@ public class Board
     private int[][] m_toSolve;
     private final boolean[][] m_editable;
 
-    //private State m_state;
+    private State m_state;
     
     int m_lives;
     
@@ -16,6 +16,8 @@ public class Board
     	m_toSolve = new int[9][9];
     	m_editable = new boolean[9][9];
     	
+        m_state = new 
+        
         for (int i = 0; i < 9; ++i)
         {
             System.arraycopy(toSolve[i], 0, m_toSolve[i], 0, 9);
@@ -51,7 +53,7 @@ public class Board
         {
             for (int j = 0; j != 9; ++j)
             {
-                str.concat(Integer.toString(m_toSolve[i][j]) + " ");
+                str = str.concat(Integer.toString(m_toSolve[i][j]) + " ");
             }
         }
         
