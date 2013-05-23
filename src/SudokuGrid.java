@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.util.Scanner;
 
@@ -16,7 +15,7 @@ public class SudokuGrid extends JPanel{
 		this.board = board;
 		this.setLayout(new GridLayout(SIZE, SIZE));
 		Font text = new Font("text", Font.PLAIN, 25);
-		Scanner sc = new Scanner(board.getBoard());
+		Scanner st = new Scanner(board.getBoard());
         
 		// paint each subgrid with a different colour
 		for (int i = 0; i < SIZE; i++) {
@@ -26,13 +25,7 @@ public class SudokuGrid extends JPanel{
                                        .createLineBorder(Color.black));
 				fields[i][j].setFont(text);
 				fields[i][j].setHorizontalAlignment(JTextField.CENTER);
-				int number = sc.nextInt();
-				if (number != 0) {
-					fields[i][j].setText(Integer.toString(number));
-					fields[i][j].setEditable(false);
-				} else {
-					fields[i][j].setEditable(true);
-				}
+				
 				if (j > 2 && j < 6) {
 					if (i < 3 || (i > 5 && i < 9)) {
 						fields[i][j].setBackground(new Color(200, 200, 200));
@@ -43,7 +36,15 @@ public class SudokuGrid extends JPanel{
 						fields[i][j].setBackground(new Color(200, 200, 200));
 					}
 				}
+				int number = st.nextInt();
+				if (number != 0) {
+					fields[i][j].setText(Integer.toString(number));
+					fields[i][j].setEditable(false);
+				} else {
+					fields[i][j].setEditable(true);
+				}
 				this.add(fields[i][j]);
+				
 			}
 		}
 		setBorder(BorderFactory.createLineBorder(Color.black));
