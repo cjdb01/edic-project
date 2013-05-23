@@ -9,14 +9,14 @@ public class Board
     private State m_state;
     
     int m_lives;
-    
+    int m_hints;
     public Board(int[][] toSolve, final int[][] solved, int lives)
     {
     	m_solved = new int[9][9];
     	m_toSolve = new int[9][9];
     	m_editable = new boolean[9][9];
-    	
-        m_state = new 
+    	m_hints = 5;
+        //m_state = new 
         
         for (int i = 0; i < 9; ++i)
         {
@@ -43,7 +43,7 @@ public class Board
             m_toSolve[x][y] = val;
         }
 
-        return (m_editable[x][y] && val >= 0 && val < 10 && realtimeCheck(x, y, val));
+        return (m_editable[x][y] && val >= 0 && val < 10);
     }
     
     private boolean realtimeCheck(int x, int y, int val)
@@ -92,12 +92,19 @@ public class Board
         int y;
         Random generator = new Random();
         
+        if (m_hints == 0)
+        {
+            return null;
+        }
+        
         do
         {
             x = generator.nextInt(9);
             y = generator.nextInt(9);
         }
         while (m_toSolve[x][y] != 0);
+        
+        --m_hints;
         
         m_toSolve[x][y] = m_solved[x][y];
         return new Vector3D(x, y, m_solved[x][y]);
