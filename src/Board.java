@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Board
+public class Sudoku
 {
     private final int[][] m_solved;
     private int[][] m_toSolve;
@@ -9,13 +9,14 @@ public class Board
     private State m_state;
     
     int m_lives;
-    int m_hints;
-    public Board(int[][] toSolve, final int[][] solved, int lives)
+    int m_assist;
+    
+    public Sudoku(int[][] toSolve, final int[][] solved, int lives)
     {
     	m_solved = new int[9][9];
     	m_toSolve = new int[9][9];
     	m_editable = new boolean[9][9];
-    	m_hints = 5;
+    	m_assist = 5;
         //m_state = new 
         
         for (int i = 0; i < 9; ++i)
@@ -39,31 +40,21 @@ public class Board
     {
         if (m_editable[x][y] == true && val >= 0 && val < 10)
         {
-            m_state = new State(m_state, null, m_lives, m_hints, new Vector3D(x, y, val));
+            m_state = new State(m_state, null, m_lives, m_assist, new Vector3D(x, y, val));
             m_toSolve[x][y] = val;
         }
 
         return (m_editable[x][y] && val >= 0 && val < 10);
     }
-    
-    private boolean realtimeCheck(int x, int y, int val)
+
+    public String getProblem()
     {
-        return (m_difficulty == Difficulty.KIDS ? m_solved[x][y] == val : true);
+        return getBoard(false);
     }
-
-    public String getBoard()
+    
+    public String getSolution()
     {
-        String str = new String();
-
-        for (int i = 0; i != 9; ++i)
-        {
-            for (int j = 0; j != 9; ++j)
-            {
-                str = str.concat(Integer.toString(m_toSolve[i][j]) + " ");
-            }
-        }
-        
-        return str;
+        return getBoard(true);
     }
 
     int getLives()
@@ -92,7 +83,7 @@ public class Board
         int y;
         Random generator = new Random();
         
-        if (m_hints == 0)
+        if (m_assist == 0)
         {
             return null;
         }
@@ -104,7 +95,7 @@ public class Board
         }
         while (m_toSolve[x][y] != 0);
         
-        --m_hints;
+        --m_assist;
         
         m_toSolve[x][y] = m_solved[x][y];
         return new Vector3D(x, y, m_solved[x][y]);
@@ -119,7 +110,7 @@ public class Board
         
         v = m_state.getValue();
         m_lives = m_state.getLives();
-        m_hints = m_state.getHints();
+        m_assist = m_state.getHints();
         m_toSolve[v.getX()][v.getY()] = v.getZ();
         m_state.setFuture(temp);
     }
@@ -132,7 +123,23 @@ public class Board
         
         v = m_state.getValue();
         m_lives = m_state.getLives();
-        m_hints = m_state.getHints();
+        m_assist = m_state.getHints();
         m_toSolve[v.getX()][v.getY()] = v.getZ();
     }
+
+    private String getBoard(boolean solved)
+    {
+        int[][] board = solved == true ? sm_solved : m_toSolve;
+        String str = new String();
+
+        for (int i = 0; i != 9; ++i)
+        {
+            for (int j = 0; j != 9; ++j)
+            {
+                str = str.concat(Integer.toString(boards[i][j]) + " ");
+            }
+        }
+        
+        return str;
+    }    
 }
