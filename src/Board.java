@@ -43,7 +43,12 @@ public class Board
             m_toSolve[x][y] = val;
         }
 
-        return m_editable[x][y];
+        return (m_editable[x][y] && val >= 0 && val < 10 && realtimeCheck(x, y, val));
+    }
+    
+    private boolean realtimeCheck(int x, int y, int val)
+    {
+        return (m_difficulty == Difficulty.KIDS ? m_solved[x][y] == val : true);
     }
 
     public String getBoard()
