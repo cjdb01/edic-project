@@ -12,6 +12,7 @@
 .settings
 .classpath
 .metadata
+.metadata/*
 
 # OS files #
 .DS_Store
