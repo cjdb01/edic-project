@@ -103,11 +103,11 @@ public class Vector3D
 	
 	/**
 	 * Gets the size of the vector
-	 * @return sqrt(x^2 + y^2 + z^2)
+	 * @return sqrt(x^2 + y^2 + z^2) rounded down to the integer
 	 */
 	public int size()
 	{
-		return Math.sqrt((x*x) + (y*y) + (z*z));
+		return (int)Math.sqrt((x*x) + (y*y) + (z*z));
 	}
 	
 	/**
@@ -230,7 +230,7 @@ public class Vector3D
 	 */
 	public static Vector3D i()
 	{
-		return new Vector3D(1.0, 0.0, 0.0);
+		return new Vector3D(1, 0, 0);
 	}
 	
 	/**
@@ -240,7 +240,7 @@ public class Vector3D
 	 */
 	public static Vector3D j()
 	{
-		return new Vector3D(0.0, 1.0, 0.0);
+		return new Vector3D(0, 1, 0);
 	}
 	
 	/**
@@ -250,7 +250,7 @@ public class Vector3D
 	 */
 	public static Vector3D k()
 	{
-		return new Vector3D(0.0, 0.0, 1.0);
+		return new Vector3D(0, 0, 1);
 	}
 	
 	public static Vector3D unitVector(final Vector3D vector)
@@ -276,7 +276,9 @@ public class Vector3D
 		return result;
 	}
 
-	public static int angleBetween(final Vector3D lhs, final Vector3D rhs)
+	// TODO check this
+	// this now properly returns a double instead of an int, but may not be correct
+	public static double angleBetween(final Vector3D lhs, final Vector3D rhs)
 	{
 		return Math.acos(dotProduct(lhs, rhs) / (lhs.size() * rhs.size()));
 	}

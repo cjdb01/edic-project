@@ -9,8 +9,8 @@ public class State
     
     public State(State past, State future, int lives, int hints, Vector3D value)
     {
-        m_past = past;
-        m_future = future;
+        m_pastState = past;
+        m_futureState = future;
         m_lives = lives;
         m_hints = hints;
         m_value = value;
@@ -18,17 +18,17 @@ public class State
     
     void setFuture(State future)
     {
-        m_future = future;
+        m_futureState = future;
     }
     
     State getPast()
     {
-        return m_past;
+        return m_pastState;
     }
     
     State getFuture()
     {
-        return m_future;
+        return m_futureState;
     }
     
     Vector3D getValue()

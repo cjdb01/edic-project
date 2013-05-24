@@ -5,7 +5,7 @@
  *
  */
 public class Generator {
-	public static Board constructBoard(Difficulty difficulty){
+	public static Sudoku constructBoard(Difficulty difficulty){
 		int toSolve[][] = {
 				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, 3, NOT_SET, 7, NOT_SET},
 				{4, NOT_SET, 7, NOT_SET, 9, NOT_SET, 5, NOT_SET, 6},
@@ -28,7 +28,7 @@ public class Generator {
 				{2, 7, 4, 9, 3, 6, 8, 1, 5},
 				{3, 6, 9, 1, 8, 5, 4, 2, 7}
 		};
-		return new Board(toSolve, solved, 3);
+		return new Sudoku(toSolve, solved, 3);
 	}
 	public final static int NOT_SET = 0;
 }

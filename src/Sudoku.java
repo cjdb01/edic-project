@@ -77,7 +77,7 @@ public class Sudoku
         return --m_lives;
     }
     
-    Vector3D getHint()
+    Vector3D getAssist()
     {
         int x;
         int y;
@@ -129,14 +129,14 @@ public class Sudoku
 
     private String getBoard(boolean solved)
     {
-        int[][] board = solved == true ? sm_solved : m_toSolve;
+        int[][] board = solved == true ? m_solved : m_toSolve;
         String str = new String();
 
         for (int i = 0; i != 9; ++i)
         {
             for (int j = 0; j != 9; ++j)
             {
-                str = str.concat(Integer.toString(boards[i][j]) + " ");
+                str = str.concat(Integer.toString(board[i][j]) + " ");
             }
         }
         

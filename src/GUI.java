@@ -11,8 +11,9 @@ public class GUI {
 	JFrame frame;
 	
 	public GUI(){
-	
-		grid = new SudokuGrid(Generator.constructBoard(null));
+		// TODO change this to call different difficulties
+		// currently made it easy all the time
+		grid = new SudokuGrid(Generator.constructBoard(Difficulty.EASY));
 		frame = new JFrame("Sudoku Solver");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());

@@ -5,17 +5,18 @@ import java.util.Scanner;
 public class SudokuGrid extends JPanel{
     
 	JTextField[][] fields;
-	Board board;
+	Sudoku sudoku;
 	final int SIZE = 9;
 	private static final long serialVersionUID = 1L;
 	
-	public SudokuGrid(Board board) {
+	public SudokuGrid(Sudoku board) {
 		super();
 		fields = new JTextField[SIZE][SIZE];
-		this.board = board;
+		this.sudoku = board;
 		this.setLayout(new GridLayout(SIZE, SIZE));
 		Font text = new Font("text", Font.PLAIN, 25);
-		Scanner st = new Scanner(board.getBoard());
+		// i think this should be get problem
+		Scanner st = new Scanner(board.getProblem());
         
 		// paint each subgrid with a different colour
 		for (int i = 0; i < SIZE; i++) {
@@ -48,10 +49,11 @@ public class SudokuGrid extends JPanel{
 			}
 		}
 		setBorder(BorderFactory.createLineBorder(Color.black));
+		st.close();
 	}
 	
 	public void displayHint(){
-		Vector3D hint = board.getHint();
+		Vector3D hint = sudoku.getAssist();
 		fields[hint.getX()][hint.getY()].setText(Integer.toString(hint.getZ()));
 	}
 }
