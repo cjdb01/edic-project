@@ -33,6 +33,15 @@ public class Sudoku
         
         m_assist = assist;
     }
+    
+    public Sudoku(int[] board, final int[][] solution, final boolean[][] editable, int assist)
+    {
+        m_toSolve = board;
+        m_solved = solution;
+        m_editable = editable;
+        m_assist = assist;
+        m_state = new State(null, null, m_assist, null);
+    }
 
 	public boolean setNode(int x, int y, int val)
     {
