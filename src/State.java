@@ -3,46 +3,67 @@ public class State
     private final State m_pastState;
     private State m_futureState;
     
-    private final Vector3D m_value;
-    private final int m_lives;
-    private final int m_hints;
+    private Vector3D m_value;
+    private int m_assist;
     
-    public State(State past, State future, int lives, int hints, Vector3D value)
+    public State(State past, State future, int hints, Vector3D value)
     {
         m_pastState = past;
         m_futureState = future;
-        m_lives = lives;
         m_hints = hints;
         m_value = value;
     }
     
-    void setFuture(State future)
+    public void setFuture(State future)
     {
         m_futureState = future;
     }
     
-    State getPast()
+    public State getPast()
     {
         return m_pastState;
     }
     
-    State getFuture()
+    public State getFuture()
     {
         return m_futureState;
     }
     
-    Vector3D getValue()
+    public Vector3D getValue()
     {
         return m_value;
     }
     
-    int getLives()
+    public int getLives()
     {
         return m_lives;
     }
     
-    int getHints()
+    public int getAssist()
     {
-        return m_hints;
+        return m_assist;
+    }
+    
+    public void loseAssist()
+    {
+        subtractAssist(true);
+    }
+    
+    private void subtractAssist(boolean backward)
+    {
+        --m_assist;
+        
+        if (backward == true)
+        {
+            if (m_past != null)
+            {
+                m_past.subtractAssist(true);
+            }
+        }
+        
+        if (m_future != null)
+        {
+            m_future.subtractAssist(false);
+        }
     }
 }

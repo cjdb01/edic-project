@@ -7,17 +7,15 @@ public class Sudoku
     private final boolean[][] m_editable;
 
     private State m_state;
-    
-    int m_lives;
     int m_assist;
     
-    public Sudoku(int[][] toSolve, final int[][] solved, int lives)
+    public Sudoku(int[][] toSolve, final int[][] solved, int assist)
     {
     	m_solved = new int[9][9];
     	m_toSolve = new int[9][9];
     	m_editable = new boolean[9][9];
-    	m_assist = 5;
-        //m_state = new 
+    	m_assist = assist;
+        m_state = new State(null, null, m_assist, null);
         
         for (int i = 0; i < 9; ++i)
         {
@@ -33,14 +31,14 @@ public class Sudoku
             }
         }
         
-        m_lives = lives;
+        m_assist = assist;
     }
 
 	public boolean setNode(int x, int y, int val)
     {
         if (m_editable[x][y] == true && val >= 0 && val < 10)
         {
-            m_state = new State(m_state, null, m_lives, m_assist, new Vector3D(x, y, val));
+            m_state = new State(m_state, null, m_assist, new Vector3D(x, y, val));
             m_toSolve[x][y] = val;
         }
 
@@ -57,24 +55,24 @@ public class Sudoku
         return getBoard(true);
     }
 
-    int getLives()
+    int getAssist()
     {
-        return m_lives;
+        return m_assist;
     }
     
-    void setLives(int lives)
+    void setAssists(int assists)
     {
-        m_lives = lives;
+        m_assist = assists;
     }
     
-    int addLife()
+    int addAssist()
     {
-        return ++m_lives;
+        return ++m_assist;
     }
     
     int removeLife()
     {
-        return --m_lives;
+        return --m_assist;
     }
     
     Vector3D getAssist()
@@ -96,35 +94,46 @@ public class Sudoku
         while (m_toSolve[x][y] != 0);
         
         --m_assist;
+        m_state.loseAssist();
         
         m_toSolve[x][y] = m_solved[x][y];
         return new Vector3D(x, y, m_solved[x][y]);
     }
     
-    void undo()
+    boolean undo()
     {
-        State temp = m_state;
-        Vector3D v;
+        if (m_state.getPast() != null)
+        {
+            State temp = m_state;
+            Vector3D v;
+            
+            m_state = m_state.getPast();
+            
+            v = m_state.getValue();
+            m_lives = m_state.getLives();
+            m_assist = m_state.getHints();
+            m_toSolve[v.getX()][v.getY()] = v.getZ();
+            m_state.setFuture(temp);
+        }
         
-        m_state = m_state.getPast();
-        
-        v = m_state.getValue();
-        m_lives = m_state.getLives();
-        m_assist = m_state.getHints();
-        m_toSolve[v.getX()][v.getY()] = v.getZ();
-        m_state.setFuture(temp);
+        return m_state.getPast();
     }
     
-    void redo()
+    boolean redo()
     {
-        Vector3D v;
+        if (m_state.getFuture() != null)
+        {
+            Vector3D v;
+            
+            m_state = m_state.getFuture();
+            
+            v = m_state.getValue();
+            m_lives = m_state.getLives();
+            m_assist = m_state.getHints();
+            m_toSolve[v.getX()][v.getY()] = v.getZ();
+        }
         
-        m_state = m_state.getFuture();
-        
-        v = m_state.getValue();
-        m_lives = m_state.getLives();
-        m_assist = m_state.getHints();
-        m_toSolve[v.getX()][v.getY()] = v.getZ();
+        return m_state.getFuture();
     }
 
     private String getBoard(boolean solved)
