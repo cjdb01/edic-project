@@ -8,19 +8,37 @@ import java.util.LinkedList;
  *
  */
 public class Generator {
-	public static Sudoku constructBoard(Difficulty difficulty){
-		int toSolve[][] = {
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, 3, NOT_SET, 7, NOT_SET},
-				{4, NOT_SET, 7, NOT_SET, 9, NOT_SET, 5, NOT_SET, 6},
-				{1, 2, NOT_SET, 6, 5, NOT_SET, NOT_SET, NOT_SET, 4},
-				{5, 8, 6, 7, NOT_SET, NOT_SET, 2, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, 3, NOT_SET, NOT_SET, NOT_SET, 9, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, 2, NOT_SET, NOT_SET, 8, 7, 5, 1},
-				{8, NOT_SET, NOT_SET, NOT_SET, 7, 2, NOT_SET, 3, 9},
-				{2, NOT_SET, 4, NOT_SET, 3, NOT_SET, 8, NOT_SET, 5},
-				{NOT_SET, 6, NOT_SET, 1, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET}
-		};
-		int grid[][] = {
+	public static Sudoku constructBoard(Difficulty difficulty) throws IllegalArgumentException {
+		int numSpaces;
+		int numHints;
+		// these are just arbitrary numbers atm
+		// can do other things with difficulty later
+		switch(difficulty) {
+		case KIDS:	
+			numSpaces = 5;
+			numHints = 5;
+			break;
+		case EASY:
+			numSpaces = 10;
+			numHints = 3;
+			break;
+		case MEDIUM:
+			numSpaces = 15;
+			numHints = 1;
+			break;
+		case HARD:
+			numSpaces = 20;
+			numHints = 0;
+			break;
+		case EXPERT:
+			// will generate a minimal sudoku problem
+			numSpaces = 81;
+			numHints = 0;
+			break;
+		default:
+			throw(new IllegalArgumentException("Invalid difficulty"));
+		}
+		int solved[][] = {
 				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
 				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
 				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
@@ -31,31 +49,22 @@ public class Generator {
 				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
 				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET}
 		};
-		generateSolved(grid, 0, 0);
-		int solved[][] = {
-				{6, 9, 5, 8, 4, 3, 1, 7, 2},
-				{4, 3, 7, 2, 9, 1, 5, 8, 6},
-				{1, 2, 8, 6, 5, 7, 3, 9, 4},
-				{5, 8, 6, 7, 1, 9, 2, 4, 3},
-				{7, 1, 3, 5, 2, 4, 9, 6, 8},
-				{9, 4, 2, 3, 6, 8, 7, 5, 1},
-				{8, 5, 1, 4, 7, 2, 6, 3, 9},
-				{2, 7, 4, 9, 3, 6, 8, 1, 5},
-				{3, 6, 9, 1, 8, 5, 4, 2, 7}
-		};
-		return new Sudoku(toSolve, solved, 3);
+		generateSolved(solved, 0, 0);
+		int [][]toSolve = generateProblem(solved, numSpaces);
+		return new Sudoku(toSolve, solved, numHints);
 	}
 	
 	/**
 	 * Generates a random solved 9x9 sudoku as a 2d array. 
 	 * Pretty quick, can generate 10000 games in about 1.7s.
-	 * Also, none of the 10000 games are repeated.
+	 * Also, when 100000 games are generated, none are repeated.
 	 * 
 	 * @param grid the grid on which the solved sudoku is generated (initialized as NOT_SET).
 	 * @param curRow the current row of the grid (initialized as 0).
 	 * @param curCol the current column of grid (initialized as 0).
 	 * @return true if the sudoku has been generated properly.
 	 */
+	//TODO change to private
 	public static boolean generateSolved(int[][] grid, int curRow, int curCol){
 		// a list containing numbers between 1 and 9 (included) which have yet to be tried
 		LinkedList<Integer> toTry = new LinkedList<Integer>();
@@ -89,6 +98,44 @@ public class Generator {
 		return false;
 	}
 
+	// creates an initial problem from a solved sudoku board
+	// numSpaces is the number of empty spaces the problem should have
+	// will make the problem have as close to numSpaces empty spaces as possible
+	// TODO change to private
+	public static int[][] generateProblem(int[][] solved, int numSpaces){
+		// copy the solved array so it doesn't get changed
+		int[][] problem = new int[solved.length][];
+		for(int i = 0; i < solved.length; i++){
+			problem[i] = new int[solved[i].length];
+			System.arraycopy(solved[i], 0, problem[i], 0, solved[i].length);
+		}
+		// the number of spaces in the current board
+		int curSpaces = 0;
+		// make a list of all possible cell indexes from which a number can be removed
+		LinkedList<Integer> toTry = new LinkedList<Integer>();
+		for(int i = 0; i < 81; i++){
+			toTry.add(i);
+		}
+		// shuffle the list randomly
+		Collections.shuffle(toTry);
+		while(!toTry.isEmpty() && curSpaces < numSpaces){
+			int attempt = toTry.poll();
+			int rowIndex = attempt/9;
+			int colIndex = attempt%9;
+			if(problem[rowIndex][colIndex] != NOT_SET){
+				int temp = problem[rowIndex][colIndex];
+				problem[rowIndex][colIndex] = NOT_SET;
+				curSpaces ++;
+				// if its not unique, revert
+				if(!uniqueSolution(problem)){
+					problem[rowIndex][colIndex] = temp;
+					curSpaces --;
+				}
+			}
+		}
+		return problem;
+	}
+	
 	/**
 	 * Checks if a value can be placed in a position on the grid without producing conflict.
 	 * 
@@ -98,7 +145,8 @@ public class Generator {
 	 * @param value the value to be checked, where 0 < value < 10.
 	 * @return true if placing the value in the specified position produces no conflicts; false otherwise.
 	 */
-	public static boolean noConflicts(int[][] grid, int row, int column, int value){
+	//TODO change to private
+	private static boolean noConflicts(int[][] grid, int row, int column, int value){
 		//checking along row
 		for(int i = 0; i < grid[row].length; i++){
 			if(i != column && grid[row][i] == value){
@@ -127,6 +175,74 @@ public class Generator {
 		}
 		return true;
 	}
+	
+	// returns true if an unique solution exists
+	private static boolean uniqueSolution(int[][] problem){
+		solutionCounter = 0;
+		solve(problem, 0, 0);
+		if(solutionCounter == 1){
+			return true;
+		}
+		return false;
+	}
+	
+	// basic bruteforce, backtracking algorithm, 
+	// will stop after 2 solutions have been found
+	// will change problem during the algorithm, but should be set back to original after
+	// requires solutionCounter to be set to 0 before calling
+	// returns a true if multiple solutions have been found, false otherwise
+	private static boolean solve(int[][] problem, int row, int col){
+		// advance row and col to the next empty spot in the problem array 
+		int index = 9*row + col;
+		while(row < problem.length && problem[row][col] != NOT_SET){
+			index += 1;
+			row = index/9;
+			col = index%9;
+		}
+		// if couldn't find anything, then a proper solution is assigned
+		if(row == problem.length){
+			solutionCounter += 1;
+			return true;
+		}
+	
+		for(int num = 1; num <= 9; num ++){
+			if(noConflicts(problem, row, col, num)){
+				problem[row][col] = num;
+				// recur, if more than one solution has been found, stop
+				//System.out.printf("Row: %d, Col: %d\n", row, col);
+				if(solve(problem, row, col) && solutionCounter > 1){
+					problem[row][col] = NOT_SET;// change it back to initial problem
+					return true;
+				}
+				problem[row][col] = NOT_SET;
+			}
+		}
+		// backtrack
+		return false;
+	}
+	
+	/*
+	//TODO change to private
+	public DLinksNode generateMatrix(int[][] problem){
+		DLinksNode root = new RootNode();
+		// these point to the start of their relevant section of constraint headers
+		DLinksNode rowcol = root;
+		DLinksNode rownum = root;
+		DLinksNode colnum = root;
+		DLinksNode boxnum = root;
+		//iterate through all cells
+		for(int i = 0; i < problem.length; i++){
+			for(int j = 0; j < problem[i].length; j++){
+				if(problem[i][j] == NOT_SET){
+					// generate rows 1-9 representing possibilities
+					// need to generate suitable columns, if they haven't already been created
+					
+				}
+			}
+		}
+	}
+	*/
+	private static int solutionCounter;
 	
 	public final static int NOT_SET = 0;
 }
