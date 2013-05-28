@@ -33,21 +33,21 @@ public class Generator {
 		case EXPERT:
 			// will generate a minimal sudoku problem
 			numSpaces = 81;
-			numHints = 0;
+			numHints = 81;
 			break;
 		default:
 			throw(new IllegalArgumentException("Invalid difficulty"));
 		}
 		int solved[][] = {
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
-				{NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET}
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET}
 		};
 		generateSolved(solved, 0, 0);
 		int [][]toSolve = generateProblem(solved, numSpaces);
@@ -59,7 +59,7 @@ public class Generator {
 	 * Pretty quick, can generate 10000 games in about 1.7s.
 	 * Also, when 100000 games are generated, none are repeated.
 	 * 
-	 * @param grid the grid on which the solved sudoku is generated (initialized as NOT_SET).
+	 * @param grid the grid on which the solved sudoku is generated (initialized as Sudoku.NOT_SET).
 	 * @param curRow the current row of the grid (initialized as 0).
 	 * @param curCol the current column of grid (initialized as 0).
 	 * @return true if the sudoku has been generated properly.
@@ -92,7 +92,7 @@ public class Generator {
 					return true;
 				}
 				// if it gets here, means the attempt was unsuccessful
-				grid[curRow][curCol] = NOT_SET;
+				grid[curRow][curCol] = Sudoku.NOT_SET;
 			}
 		}
 		return false;
@@ -122,9 +122,9 @@ public class Generator {
 			int attempt = toTry.poll();
 			int rowIndex = attempt/9;
 			int colIndex = attempt%9;
-			if(problem[rowIndex][colIndex] != NOT_SET){
+			if(problem[rowIndex][colIndex] != Sudoku.NOT_SET){
 				int temp = problem[rowIndex][colIndex];
-				problem[rowIndex][colIndex] = NOT_SET;
+				problem[rowIndex][colIndex] = Sudoku.NOT_SET;
 				curSpaces ++;
 				// if its not unique, revert
 				if(!uniqueSolution(problem)){
@@ -194,7 +194,7 @@ public class Generator {
 	private static boolean solve(int[][] problem, int row, int col){
 		// advance row and col to the next empty spot in the problem array 
 		int index = 9*row + col;
-		while(row < problem.length && problem[row][col] != NOT_SET){
+		while(row < problem.length && problem[row][col] != Sudoku.NOT_SET){
 			index += 1;
 			row = index/9;
 			col = index%9;
@@ -211,10 +211,10 @@ public class Generator {
 				// recur, if more than one solution has been found, stop
 				//System.out.printf("Row: %d, Col: %d\n", row, col);
 				if(solve(problem, row, col) && solutionCounter > 1){
-					problem[row][col] = NOT_SET;// change it back to initial problem
+					problem[row][col] = Sudoku.NOT_SET;// change it back to initial problem
 					return true;
 				}
-				problem[row][col] = NOT_SET;
+				problem[row][col] = Sudoku.NOT_SET;
 			}
 		}
 		// backtrack
@@ -233,7 +233,7 @@ public class Generator {
 		//iterate through all cells
 		for(int i = 0; i < problem.length; i++){
 			for(int j = 0; j < problem[i].length; j++){
-				if(problem[i][j] == NOT_SET){
+				if(problem[i][j] == Sudoku.NOT_SET){
 					// generate rows 1-9 representing possibilities
 					// need to generate suitable columns, if they haven't already been created
 					
@@ -244,6 +244,5 @@ public class Generator {
 	*/
 	private static int solutionCounter;
 	
-	public final static int NOT_SET = 0;
 }
 

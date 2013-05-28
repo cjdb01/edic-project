@@ -25,7 +25,7 @@ public class GameScreen extends JPanel{
 		exit = new JButton("Exit");
 		resume = new JButton("Resume");
 		newGame = new JButton("New Problem");
-		grid = new SudokuGrid(Generator.constructBoard(Difficulty.MEDIUM));
+		grid = new SudokuGrid(Generator.constructBoard(Difficulty.EXPERT));
 		timer = new TimerField();
 		timer.start();
 
@@ -83,7 +83,7 @@ public class GameScreen extends JPanel{
 				ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
-				grid.getNewGame(Generator.constructBoard(Difficulty.MEDIUM));
+				grid.getNewGame(Generator.constructBoard(Difficulty.EXPERT));
 				timer.restart();
 				if(paused == true){
 					timer.start();

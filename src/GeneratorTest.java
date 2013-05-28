@@ -14,17 +14,17 @@ public class GeneratorTest {
 //		ArrayList<int[][]> grids = new ArrayList<int[][]>();
 //		for(int k = 0; k < 100000; k++){
 //			int grid[][] = {
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-//					{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET}
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//					{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET}
 //			};
-//			boolean ans = Generator.generateSolved(grid, 0, 0);
+//			boolean ans = Sudoku.generateSolved(grid, 0, 0);
 //			/*System.out.println("ans = "+ ans);
 //			for(int[] row : grid){
 //				System.out.println(Arrays.toString(row));
@@ -32,7 +32,7 @@ public class GeneratorTest {
 //			assertTrue(ans);
 //			for(int i = 0; i < 9; i++){
 //				for(int j = 0; j < 9; j++){
-//					assertTrue(Generator.noConflicts(grid, i, j, grid[i][j]));
+//					assertTrue(Sudoku.noConflicts(grid, i, j, grid[i][j]));
 //				}
 //			}
 //			grids.add(grid);
@@ -58,29 +58,29 @@ public class GeneratorTest {
 //				{2, 7, 4, 0, 3, 6, 0, 1, 0},
 //				{3, 6, 0, 1, 0, 0, 4, 2, 7}
 //		};
-//		assertTrue(Generator.noConflicts(grid,1,1,3));
-//		assertFalse(Generator.noConflicts(grid,1,1,8));
-//		assertFalse(Generator.noConflicts(grid,1,1,9));
-//		assertFalse(Generator.noConflicts(grid,1,1,5));
+//		assertTrue(Sudoku.noConflicts(grid,1,1,3));
+//		assertFalse(Sudoku.noConflicts(grid,1,1,8));
+//		assertFalse(Sudoku.noConflicts(grid,1,1,9));
+//		assertFalse(Sudoku.noConflicts(grid,1,1,5));
 		
 //		// testing solver
 //		int toSolve[][] = {
-//				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, 3, Generator.NOT_SET, 7, Generator.NOT_SET},
-//				{4, Generator.NOT_SET, 7, Generator.NOT_SET, 9, Generator.NOT_SET, 5, Generator.NOT_SET, 6},
-//				{1, 2, Generator.NOT_SET, 6, 5, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, 4},
-//				{5, 8, 6, 7, Generator.NOT_SET, Generator.NOT_SET, 2, Generator.NOT_SET, Generator.NOT_SET},
-//				{Generator.NOT_SET, Generator.NOT_SET, 3, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, 9, Generator.NOT_SET, Generator.NOT_SET},
-//				{Generator.NOT_SET, Generator.NOT_SET, 2, Generator.NOT_SET, Generator.NOT_SET, 8, 7, 5, 1},
-//				{8, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, 7, 2, Generator.NOT_SET, 3, 9},
-//				{2, Generator.NOT_SET, 4, Generator.NOT_SET, 3, Generator.NOT_SET, 8, Generator.NOT_SET, 5},
-//				{Generator.NOT_SET, 6, Generator.NOT_SET, 1, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET}
+//				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, 3, Sudoku.NOT_SET, 7, Sudoku.NOT_SET},
+//				{4, Sudoku.NOT_SET, 7, Sudoku.NOT_SET, 9, Sudoku.NOT_SET, 5, Sudoku.NOT_SET, 6},
+//				{1, 2, Sudoku.NOT_SET, 6, 5, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, 4},
+//				{5, 8, 6, 7, Sudoku.NOT_SET, Sudoku.NOT_SET, 2, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//				{Sudoku.NOT_SET, Sudoku.NOT_SET, 3, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, 9, Sudoku.NOT_SET, Sudoku.NOT_SET},
+//				{Sudoku.NOT_SET, Sudoku.NOT_SET, 2, Sudoku.NOT_SET, Sudoku.NOT_SET, 8, 7, 5, 1},
+//				{8, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, 7, 2, Sudoku.NOT_SET, 3, 9},
+//				{2, Sudoku.NOT_SET, 4, Sudoku.NOT_SET, 3, Sudoku.NOT_SET, 8, Sudoku.NOT_SET, 5},
+//				{Sudoku.NOT_SET, 6, Sudoku.NOT_SET, 1, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET}
 //				};
 //		
-//		Generator.solutionCounter = 0;
-//		boolean unique = Generator.solve(toSolve, 0, 0);
+//		Sudoku.solutionCounter = 0;
+//		boolean unique = Sudoku.solve(toSolve, 0, 0);
 //		System.out.println("Solved");
 //		System.out.println("Multiple Solutions = " + unique);
-//		System.out.println(Generator.solutionCounter);
+//		System.out.println(Sudoku.solutionCounter);
 //		for(int[] row : toSolve){
 //			System.out.println(Arrays.toString(row));
 //		}
@@ -103,15 +103,15 @@ public class GeneratorTest {
 		// testing generation of problem:
 		System.out.println("Generating solved sudoku");
 		int solved[][] = {
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET},
-				{Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET, Generator.NOT_SET}
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
+				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET}
 		};
 		Generator.generateSolved(solved, 0, 0);
 		for(int[] row : solved){

@@ -190,4 +190,6 @@ public class Sudoku
     	
     	return editable;
     }
+    
+	public final static int NOT_SET = 0;
 }
