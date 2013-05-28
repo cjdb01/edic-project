@@ -1,41 +1,36 @@
 public class State
 {
-    private final State m_pastState;
-    private State m_futureState;
+    private final State m_past;
+    private State m_future;
     
     private Vector3D m_value;
     private int m_assist;
     
     public State(State past, State future, int hints, Vector3D value)
     {
-        m_pastState = past;
-        m_futureState = future;
+        m_past = past;
+        m_future = future;
         m_value = value;
     }
     
     public void setFuture(State future)
     {
-        m_futureState = future;
+        m_future = future;
     }
     
     public State getPast()
     {
-        return m_pastState;
+        return m_past;
     }
     
     public State getFuture()
     {
-        return m_futureState;
+        return m_future;
     }
     
     public Vector3D getValue()
     {
         return m_value;
-    }
-    
-    public int getLives()
-    {
-        return m_lives;
     }
     
     public int getAssist()
