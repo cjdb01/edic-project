@@ -119,12 +119,12 @@ public class Sudoku
             m_state = m_state.getPast();
             
             v = m_state.getValue();
-            m_assist = m_state.getHints();
+            m_assist = m_state.getAssist();
             m_toSolve[v.getX()][v.getY()] = v.getZ();
             m_state.setFuture(temp);
         }
         
-        return m_state.getPast();
+        return (m_state.getPast() != null);
     }
     
     boolean redo()
@@ -136,11 +136,11 @@ public class Sudoku
             m_state = m_state.getFuture();
             
             v = m_state.getValue();
-            m_assist = m_state.getHints();
+            m_assist = m_state.getAssist();
             m_toSolve[v.getX()][v.getY()] = v.getZ();
         }
         
-        return m_state.getFuture();
+        return (m_state.getFuture() != null);
     }
 
     private String getBoard(boolean solved)
