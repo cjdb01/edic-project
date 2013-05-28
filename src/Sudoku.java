@@ -157,8 +157,8 @@ public class Sudoku
         }
         
         return (m_state.getFuture() != null);
-    }
-
+    }    
+    
     private String getBoard(boolean solved)
     {
         int[][] board = solved == true ? m_solved : m_toSolve;
@@ -173,5 +173,21 @@ public class Sudoku
         }
         
         return str;
-    }    
+    }
+    
+    public String getEditable()
+    {
+    	String editable = new String();
+    	
+    	for (int i = 0; i != 9; ++i)
+    	{
+    		for (int j = 0; j != 9; ++j)
+    		{
+    			editable += Boolean.toString(m_editable[i][j]);
+    			editable += " ";
+    		}
+    	}
+    	
+    	return editable;
+    }
 }
