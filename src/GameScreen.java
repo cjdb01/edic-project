@@ -93,9 +93,7 @@ public class GameScreen extends JPanel{
 					assist.setVisible(true);
 				}
 			}
-		});
-		
-		
+		});	
 		JPanel bottom = new JPanel();
 		bottom.add(clear);
 		bottom.add(resume);
