@@ -34,7 +34,7 @@ public class Sudoku
         m_assist = assist;
     }
     
-    public Sudoku(int[] board, final int[][] solution, final boolean[][] editable, int assist)
+    public Sudoku(int[][] board, final int[][] solution, final boolean[][] editable, int assist)
     {
         m_toSolve = board;
         m_solved = solution;
@@ -64,7 +64,7 @@ public class Sudoku
         return getBoard(true);
     }
 
-    int getAssist()
+    int getRemainingAssists()
     {
         return m_assist;
     }
@@ -119,7 +119,6 @@ public class Sudoku
             m_state = m_state.getPast();
             
             v = m_state.getValue();
-            m_lives = m_state.getLives();
             m_assist = m_state.getHints();
             m_toSolve[v.getX()][v.getY()] = v.getZ();
             m_state.setFuture(temp);
@@ -137,7 +136,6 @@ public class Sudoku
             m_state = m_state.getFuture();
             
             v = m_state.getValue();
-            m_lives = m_state.getLives();
             m_assist = m_state.getHints();
             m_toSolve[v.getX()][v.getY()] = v.getZ();
         }

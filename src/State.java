@@ -10,7 +10,6 @@ public class State
     {
         m_pastState = past;
         m_futureState = future;
-        m_hints = hints;
         m_value = value;
     }
     
