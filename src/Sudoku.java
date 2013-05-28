@@ -84,7 +84,21 @@ public class Sudoku
         return --m_assist;
     }
     
-    
+    public boolean validate()
+    {
+        for (int i = 0; i != 9; ++i)
+        {
+            for (int j = 0; j != 9; ++j)
+            {
+                if (m_solved[i][j] != m_toSolve[i][j])
+                {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
     
     public Vector3D getAssist()
     {
