@@ -18,7 +18,7 @@ public class GUI {
 		frame.add(game, BorderLayout.CENTER);
 		//time.startTimer();
 		
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.setVisible(true);
 		frame.pack();
 	}

@@ -18,7 +18,7 @@ public class SudokuGrid extends JPanel{
 		this.board = board;
 		this.setLayout(new GridLayout(SIZE, SIZE));
 		Font text = new Font("text", Font.PLAIN, 25);
-		Scanner st = new Scanner(board.getBoard());
+		Scanner st = new Scanner(board.getProblem());
 		userBoard = new String[SIZE][SIZE];
 
 		// paint each subgrid with a different colour
@@ -55,7 +55,7 @@ public class SudokuGrid extends JPanel{
 	}
 	
 	public void displayAssist(){
-		Vector3D hint = board.getHint();
+		Vector3D hint = board.getAssist();
 		if(hint != null){
 			fields[hint.getX()][hint.getY()].setText(Integer.toString(hint.getZ()));
 		} else {
@@ -80,7 +80,7 @@ public class SudokuGrid extends JPanel{
 	
 	public void getNewGame(Sudoku board){
 		this.board = board;
-		Scanner st = new Scanner(board.getBoard());
+		Scanner st = new Scanner(board.getProblem());
 		
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
