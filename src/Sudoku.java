@@ -64,27 +64,29 @@ public class Sudoku
         return getBoard(true);
     }
 
-    int getRemainingAssists()
+    public int getRemainingAssists()
     {
         return m_assist;
     }
     
-    void setAssists(int assists)
+    public void setAssists(int assists)
     {
         m_assist = assists;
     }
     
-    int addAssist()
+    public int addAssist()
     {
         return ++m_assist;
     }
     
-    int removeLife()
+    public int removeLife()
     {
         return --m_assist;
     }
     
-    Vector3D getAssist()
+    
+    
+    public Vector3D getAssist()
     {
         int x;
         int y;
@@ -109,7 +111,7 @@ public class Sudoku
         return new Vector3D(x, y, m_solved[x][y]);
     }
     
-    boolean undo()
+    public boolean undo()
     {
         if (m_state.getPast() != null)
         {
@@ -127,7 +129,7 @@ public class Sudoku
         return (m_state.getPast() != null);
     }
     
-    boolean redo()
+    public boolean redo()
     {
         if (m_state.getFuture() != null)
         {
