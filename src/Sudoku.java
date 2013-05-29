@@ -201,5 +201,18 @@ public class Sudoku
     	return editable;
     }
     
+    public boolean isComplete(){
+    	  for (int i = 0; i != 9; ++i)
+          {
+              for (int j = 0; j != 9; ++j)
+              {
+                if(m_toSolve[i][j] != m_solved[i][j])
+                      return false;
+                  }
+              }
+          
+          return true;
+      }
+    
 	public final static int NOT_SET = 0;
 }

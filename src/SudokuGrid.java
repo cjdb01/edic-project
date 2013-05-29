@@ -57,13 +57,15 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 
-	public void validate() {
+	public String getStatus() {
 
 		if (board.validate()) {
-			JOptionPane.showMessageDialog(this, "Well done, keep going");
+			if(board.isComplete())
+				return "You WIN!";
+			else 
+			return "Everything is OK, keep going!";
 		} else {
-			board.printSudoku();
-			JOptionPane.showMessageDialog(this, "Somethings Wrong");
+			return "Something is wrong!";
 		}
 	}
 
@@ -79,6 +81,24 @@ public class SudokuGrid extends JPanel {
 
 	}
 
+	public void updateSudoku(){
+		for(int i = 0; i < SIZE; i++){
+			for(int j = 0; j < SIZE; j++){
+				String text = fields[i][j].getText();
+				if(isNumeric(text)){
+					if(text.length() == 1 && !text.equals(" ")){
+						board.setNode(i, j, Integer.parseInt(text));
+					} else if(text.equals(" ") || text.length()==0){
+						board.setNode(i, j, 0);
+					}
+				} else {
+					JOptionPane.showMessageDialog(this, "Please enter numbers!");
+					return;
+				}
+			}
+		}
+	}
+	
 	public void getNewGame(Difficulty difficulty) {
 		this.board = Generator.constructBoard(difficulty);
 		Scanner st = new Scanner(board.getProblem());
@@ -122,5 +142,14 @@ public class SudokuGrid extends JPanel {
 				fields[i][j].setText(userBoard[i][j]);
 			}
 		}
+	}
+	
+	private boolean isNumeric(String string){
+		for(int i = 0; i < string.length(); i++){
+			if(string.charAt(i) < '0' || string.charAt(i) > '9' || string.charAt(i) != ' '){
+				return true;
+			}
+		}
+		return true;
 	}
 }

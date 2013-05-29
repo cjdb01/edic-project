@@ -22,7 +22,7 @@ public class GUI implements ActionListener {
 	
 	public static void main(String[] args) {
 
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Interactive Sudoku");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel pane = (JPanel) frame.getContentPane();
 		cards = new JPanel();

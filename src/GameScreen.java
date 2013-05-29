@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class GameScreen extends JPanel{
 	
-
 	private static final long serialVersionUID = 1L;
+	private final JLabel message;
 	private JButton clear;
 	private JButton validate;
 	private JButton pause;
@@ -29,6 +29,7 @@ public class GameScreen extends JPanel{
 		newGame = new JButton("New Problem");
 		grid = new SudokuGrid();
 		timer = new TimerField();
+		message = new JLabel(" ");
 
 		clear.addActionListener(new
 				ActionListener(){
@@ -85,20 +86,22 @@ public class GameScreen extends JPanel{
 					pause.setVisible(true);
 					resume.setVisible(false);
 					assist.setVisible(true);
+					message.setText(" ");
 				}
 			}
 		});	
-		
 		validate.addActionListener(new
 				ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
-				grid.validate();
+				grid.updateSudoku();
+				message.setText(grid.getStatus());
+				if(grid.getStatus().equals("You WIN!")){
+					timer.pause();
+				}
 			}
 		});	
-		
 		bottom = new JPanel();
-		
 		bottom.add(clear);
 		bottom.add(newGame);
 		bottom.add(resume);
@@ -107,19 +110,18 @@ public class GameScreen extends JPanel{
 		bottom.add(assist);
 		bottom.add(validate);
 		
-		JPanel panel = new JPanel();
-		JLabel panel2 = new JLabel("Sudoku"); 
-		panel2.setFont(new Font("text", Font.PLAIN, 26));
+		JPanel panel = new JPanel(); 
+		message.setFont(new Font("text", Font.PLAIN, 26));
+		message.setHorizontalAlignment(SwingConstants.CENTER);
 		JPanel panel3 = new JPanel();
 		
 		this.setLayout(new BorderLayout());
 		this.add(grid, BorderLayout.CENTER);
 		this.add(bottom, BorderLayout.SOUTH);
 		this.add(panel, BorderLayout.WEST);
-		this.add(panel2, BorderLayout.NORTH);
+		this.add(message, BorderLayout.NORTH);
 		this.add(panel3, BorderLayout.EAST);
-		resume.setVisible(false);
-		
+		resume.setVisible(false);	
 	}
 	
 	public Difficulty getDifficulty(){
@@ -142,6 +144,6 @@ public class GameScreen extends JPanel{
 	public void stopGame(){
 		timer.restart();
 		timer.pause();
-	}
-	
+		message.setText(" ");
+	}	
 }
