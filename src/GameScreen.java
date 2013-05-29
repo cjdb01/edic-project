@@ -86,8 +86,9 @@ public class GameScreen extends JPanel{
 					pause.setVisible(true);
 					resume.setVisible(false);
 					assist.setVisible(true);
-					message.setText(" ");
 				}
+				message.setText(" ");
+				timer.start();
 			}
 		});	
 		validate.addActionListener(new
