@@ -35,7 +35,7 @@ public class GUI implements ActionListener {
 		//initialise cards
 		gameCard = new GameScreen();
 		menuCard = new JPanel();
-		menuCard.setLayout(new GridBagLayout());
+		menuCard.setLayout(new BorderLayout());
 		
 		//initialise buttons
 		quit = new JButton("Quit");
@@ -47,7 +47,6 @@ public class GUI implements ActionListener {
 		
 		JPanel rightPanel = new JPanel();
 		JPanel leftPanel = new JPanel();
-		leftPanel.setPreferredSize(new Dimension(500, 500));
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		
@@ -62,7 +61,6 @@ public class GUI implements ActionListener {
 		JButton options = new JButton("Options");
 		JButton help = new JButton("Help");
 		JButton credits = new JButton("Credits");
-		play.setPreferredSize(new Dimension(100, 100));
 		
 		leftPanel.add(play);
 		leftPanel.add(options);
@@ -71,9 +69,13 @@ public class GUI implements ActionListener {
 		
 		//add static buttons to cards
 		gameCard.addButton(quit);
-		menuCard.add(rightPanel);
+		menuCard.add(rightPanel, BorderLayout.EAST);
 		//add buttons to menu
-		menuCard.add(leftPanel);
+		menuCard.add(leftPanel, BorderLayout.WEST);
+		JLabel title = new JLabel("Sudoku");
+		title.setFont(new Font("text", Font.PLAIN, 25));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCard.add(title, BorderLayout.NORTH);
 		
 		//add cards
 		cards.add("GameScreen", gameCard);
@@ -126,6 +128,7 @@ public class GUI implements ActionListener {
 			cardLayout.show(cards, "GameScreen");
 		} else if(e.getSource() == quit){
 			gameCard.stopGame();
+			hideDifficultyButtons();
 			cardLayout.show(cards, "Menu");
 		}
 	}
