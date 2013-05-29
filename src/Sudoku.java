@@ -90,14 +90,24 @@ public class Sudoku
         {
             for (int j = 0; j != 9; ++j)
             {
-                if (m_solved[i][j] != m_toSolve[i][j])
-                {
+                if (m_toSolve[i][j] == 0){
+                	//do nothing
+                } else if(m_toSolve[i][j] != m_solved[i][j])
                     return false;
                 }
             }
-        }
         
         return true;
+    }
+    
+    public void printSudoku(){
+    	for(int i = 0; i < 9; i++){
+    		for(int j = 0; j < 9; j++){
+    			System.out.printf("%d", m_toSolve[i][j]);
+    		}
+    		System.out.println();
+    		
+    	}
     }
     
     public Vector3D getAssist()

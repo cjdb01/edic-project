@@ -5,16 +5,19 @@ import java.awt.event.ActionListener;
 
 public class GameScreen extends JPanel{
 	
+
+	private static final long serialVersionUID = 1L;
 	private JButton clear;
 	private JButton validate;
 	private JButton pause;
 	private JButton assist;
-	private JButton exit;
 	private JButton newGame;
 	private JButton resume;
 	private boolean paused;
 	private final TimerField timer;
 	private final SudokuGrid grid;
+	private Difficulty difficulty;
+	private JPanel bottom;
 	
 	public GameScreen (){
 		super();
@@ -22,12 +25,10 @@ public class GameScreen extends JPanel{
 		validate = new JButton("Validate");
 		pause = new JButton("Pause");
 		assist = new JButton("Assist");
-		exit = new JButton("Exit");
 		resume = new JButton("Resume");
 		newGame = new JButton("New Problem");
-		grid = new SudokuGrid(Generator.constructBoard(Difficulty.EXPERT));
+		grid = new SudokuGrid();
 		timer = new TimerField();
-		timer.start();
 
 		clear.addActionListener(new
 				ActionListener(){
@@ -37,13 +38,6 @@ public class GameScreen extends JPanel{
 			}
 		});
 		
-		validate.addActionListener(new
-				ActionListener(){
-			public void actionPerformed(ActionEvent event)
-			{
-				grid.validate();
-			}
-		});
 		pause.addActionListener(new
 				ActionListener(){
 			public void actionPerformed(ActionEvent event)
@@ -83,7 +77,7 @@ public class GameScreen extends JPanel{
 				ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
-				grid.getNewGame(Generator.constructBoard(Difficulty.EXPERT));
+				grid.getNewGame(getDifficulty());
 				timer.restart();
 				if(paused == true){
 					timer.start();
@@ -94,19 +88,60 @@ public class GameScreen extends JPanel{
 				}
 			}
 		});	
-		JPanel bottom = new JPanel();
+		
+		validate.addActionListener(new
+				ActionListener(){
+			public void actionPerformed(ActionEvent event)
+			{
+				grid.validate();
+			}
+		});	
+		
+		bottom = new JPanel();
+		
 		bottom.add(clear);
+		bottom.add(newGame);
 		bottom.add(resume);
 		bottom.add(pause);
 		bottom.add(timer);
-		bottom.add(newGame);
 		bottom.add(assist);
+		bottom.add(validate);
+		
+		JPanel panel = new JPanel();
+		JLabel panel2 = new JLabel("Sudoku"); 
+		panel2.setFont(new Font("text", Font.PLAIN, 26));
+		JPanel panel3 = new JPanel();
 		
 		this.setLayout(new BorderLayout());
 		this.add(grid, BorderLayout.CENTER);
 		this.add(bottom, BorderLayout.SOUTH);
+		this.add(panel, BorderLayout.WEST);
+		this.add(panel2, BorderLayout.NORTH);
+		this.add(panel3, BorderLayout.EAST);
 		resume.setVisible(false);
 		
+	}
+	
+	public Difficulty getDifficulty(){
+		return difficulty;
+	}
+	
+	public void playNewGame(){
+		grid.getNewGame(difficulty);
+		timer.start();
+	}
+	
+	public void setDifficulty(Difficulty difficulty){
+		this.difficulty = difficulty;
+	}
+	
+	public void addButton(JButton button){
+		bottom.add(button);
+	}
+	
+	public void stopGame(){
+		timer.restart();
+		timer.pause();
 	}
 	
 }
