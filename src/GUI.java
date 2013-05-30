@@ -48,7 +48,8 @@ public class GUI implements ActionListener {
 		JPanel rightPanel = new JPanel();
 		JPanel leftPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+		leftPanel.setLayout(new GridLayout(4, 1));
+		leftPanel.setSize(new Dimension(400, 200));
 		
 		rightPanel.add(kids);
 		rightPanel.add(easy);
@@ -59,8 +60,16 @@ public class GUI implements ActionListener {
 		//Menu buttons
 		JButton play = new JButton("Play");
 		JButton options = new JButton("Options");
-		JButton help = new JButton("Help");
+		JButton help = new JButton("Quit");
 		JButton credits = new JButton("Credits");
+		
+		help.addActionListener(new
+				ActionListener(){
+			public void actionPerformed(ActionEvent e){
+		
+				System.exit(0);
+			}
+		});
 		
 		leftPanel.add(play);
 		leftPanel.add(options);
@@ -71,7 +80,7 @@ public class GUI implements ActionListener {
 		gameCard.addButton(quit);
 		menuCard.add(rightPanel, BorderLayout.EAST);
 		//add buttons to menu
-		menuCard.add(leftPanel, BorderLayout.WEST);
+		menuCard.add(leftPanel, BorderLayout.CENTER);
 		JLabel title = new JLabel("Sudoku");
 		title.setFont(new Font("text", Font.PLAIN, 25));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,7 +108,7 @@ public class GUI implements ActionListener {
 		hideDifficultyButtons();
 		pane.add(cards);
 		cardLayout.show(cards, "Menu");
-		frame.setSize(650, 500);
+		frame.setSize(650, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
@@ -150,3 +159,4 @@ public class GUI implements ActionListener {
 	}
 	
 }
+
