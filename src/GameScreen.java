@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +8,8 @@ public class GameScreen extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	private final JLabel message;
+	private final JLabel remainingAssists;
+	private final JPanel top;
 	private JButton clear;
 	private JButton validate;
 	private JButton pause;
@@ -46,10 +49,7 @@ public class GameScreen extends JPanel{
 				timer.pause();
 				paused = true;
 				grid.showPause();
-				clear.setVisible(false);
-				pause.setVisible(false);
-				resume.setVisible(true);
-				assist.setVisible(false);
+				pauseButtonMode();
 			}
 		});
 		resume.addActionListener(new
@@ -59,10 +59,7 @@ public class GameScreen extends JPanel{
 				timer.start();
 				paused = false;
 				grid.showResume();
-				clear.setVisible(true);
-				pause.setVisible(true);
-				resume.setVisible(false);
-				assist.setVisible(true);
+				resumeButtonMode();
 			}
 		});
 		
@@ -71,6 +68,7 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.displayAssist();
+				remainingAssists.setText("Remaining Assists: " + grid.getAssists() + "     ");
 			}
 		});
 		
@@ -82,10 +80,8 @@ public class GameScreen extends JPanel{
 				timer.restart();
 				if(paused == true){
 					timer.start();
-					clear.setVisible(true);
-					pause.setVisible(true);
-					resume.setVisible(false);
-					assist.setVisible(true);
+					resumeButtonMode();
+					paused = false;
 				}
 				message.setText(" ");
 				timer.start();
@@ -111,17 +107,18 @@ public class GameScreen extends JPanel{
 		bottom.add(assist);
 		bottom.add(validate);
 		
-		JPanel panel = new JPanel(); 
+		top = new JPanel();
+		top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
+		remainingAssists = new JLabel();
 		message.setFont(new Font("text", Font.PLAIN, 26));
 		message.setHorizontalAlignment(SwingConstants.CENTER);
-		JPanel panel3 = new JPanel();
+		top.add(remainingAssists);
+		top.add(message);
 		
 		this.setLayout(new BorderLayout());
 		this.add(grid, BorderLayout.CENTER);
 		this.add(bottom, BorderLayout.SOUTH);
-		this.add(panel, BorderLayout.WEST);
-		this.add(message, BorderLayout.NORTH);
-		this.add(panel3, BorderLayout.EAST);
+		this.add(top, BorderLayout.NORTH);
 		resume.setVisible(false);	
 	}
 	
@@ -131,7 +128,9 @@ public class GameScreen extends JPanel{
 	
 	public void playNewGame(){
 		grid.getNewGame(difficulty);
+		remainingAssists.setText("Remaining Assists: " + grid.getAssists() + "     ");
 		timer.start();
+		resumeButtonMode();
 	}
 	
 	public void setDifficulty(Difficulty difficulty){
@@ -147,4 +146,23 @@ public class GameScreen extends JPanel{
 		timer.pause();
 		message.setText(" ");
 	}	
+	
+	private void pauseButtonMode(){
+		
+		clear.setVisible(false);
+		pause.setVisible(false);
+		assist.setVisible(false);
+		validate.setVisible(false);
+		resume.setVisible(true);
+
+	}
+	
+	private void resumeButtonMode(){
+		clear.setVisible(true);
+		pause.setVisible(true);
+		assist.setVisible(true);
+		validate.setVisible(true);
+		resume.setVisible(false);
+	}
+	
 }

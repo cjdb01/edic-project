@@ -12,7 +12,7 @@ public class GUI implements ActionListener {
 	static JPanel menuCard;
 	static CardLayout cardLayout;
 	static JPanel cards;
-	static JButton quit;
+	static JButton mainMenu;
 	static JButton kids;
 	static JButton easy;
 	static JButton hard;
@@ -38,7 +38,7 @@ public class GUI implements ActionListener {
 		menuCard.setLayout(new BorderLayout());
 		
 		//initialise buttons
-		quit = new JButton("Quit");
+		mainMenu = new JButton("Menu");
 		kids = new JButton("Kids");
 		easy = new JButton("Easy");
 		medium = new JButton("Medium");
@@ -77,7 +77,7 @@ public class GUI implements ActionListener {
 		leftPanel.add(credits);
 		
 		//add static buttons to cards
-		gameCard.addButton(quit);
+		gameCard.addButton(mainMenu);
 		menuCard.add(rightPanel, BorderLayout.EAST);
 		//add buttons to menu
 		menuCard.add(leftPanel, BorderLayout.CENTER);
@@ -91,7 +91,7 @@ public class GUI implements ActionListener {
 		cards.add("Menu", menuCard);
 		
 		//add listeners to static buttons
-		quit.addActionListener(listener);
+		mainMenu.addActionListener(listener);
 		kids.addActionListener(listener);
 		easy.addActionListener(listener);
 		medium.addActionListener(listener);
@@ -135,7 +135,7 @@ public class GUI implements ActionListener {
 			gameCard.setDifficulty(Difficulty.EXPERT);
 			gameCard.playNewGame();
 			cardLayout.show(cards, "GameScreen");
-		} else if(e.getSource() == quit){
+		} else if(e.getSource() == mainMenu){
 			gameCard.stopGame();
 			hideDifficultyButtons();
 			cardLayout.show(cards, "Menu");

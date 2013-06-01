@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 
 public class SudokuGrid extends JPanel {
@@ -28,7 +31,7 @@ public class SudokuGrid extends JPanel {
 				fields[i][j].setFont(LARGE_FONT);
 				fields[i][j].setHorizontalAlignment(JTextField.CENTER);
 				fields[i][j].getDocument().addDocumentListener(new 
-						TextDocumentListener(fields[i][j], board, i, j));
+						TextDocumentListener(fields[i][j]));
 				
 				if (j > 2 && j < 6) {
 					if (i < 3 || (i > 5 && i < 9)) {
@@ -142,6 +145,10 @@ public class SudokuGrid extends JPanel {
 				fields[i][j].setText(userBoard[i][j]);
 			}
 		}
+	}
+	
+	public String getAssists(){
+		return Integer.toString(board.getRemainingAssists());
 	}
 	
 	private boolean isNumeric(String string){

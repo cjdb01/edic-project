@@ -8,15 +8,9 @@ import javax.swing.text.Document;
 public class TextDocumentListener implements DocumentListener{
 	
 	JTextField textField;
-	Sudoku sudoku;
-	int i;
-	int j;
 	
-	TextDocumentListener(JTextField textField, Sudoku sudoku, int i, int j){
+	TextDocumentListener(JTextField textField){
 		this.textField = textField;
-		this.sudoku = sudoku;
-		this.i = i;
-		this.j = j;
 	}
 
 	@Override
@@ -34,7 +28,7 @@ public class TextDocumentListener implements DocumentListener{
 			textField.setForeground(Color.RED);
 			
 		}
-		}
+	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
@@ -48,6 +42,5 @@ public class TextDocumentListener implements DocumentListener{
 		}
 		
 	}
-		
-	}
+}
 	
