@@ -133,7 +133,11 @@ public class GUI implements ActionListener {
 		
 		//HERE IS EMPTY LOAD CARD
 		loadCard = constructScreen();
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> parent of ab622c0... Test
 		//add cards
 		cards.add("GameScreen", gameCard);
 		cards.add("Menu", menuCard);
