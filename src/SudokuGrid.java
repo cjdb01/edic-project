@@ -11,13 +11,13 @@ import javax.swing.text.NumberFormatter;
 
 /**
  * A Textbox based Sudoku Grid class that stores a sudoku problem
- * @author aydinitil
+ * @author aydinitil nat-jensen
  *
  */
 public class SudokuGrid extends JPanel {
 
 	JFormattedTextField[][] fields;
-	Sudoku board;
+	Sudoku sudoku;
 	String[][] userBoard;
 	final int SIZE = 9;
 	final int FIELD_WIDTH = 2;
@@ -86,7 +86,7 @@ public class SudokuGrid extends JPanel {
 	 * Displays an assist on the grid
 	 */
 	public void displayAssist() {
-		Vector3D hint = board.getAssist();
+		Vector3D hint = sudoku.getAssist();
 		if (hint != null) {
 			fields[hint.getX()][hint.getY()].setValue(hint
 					.getZ());
@@ -149,8 +149,8 @@ public class SudokuGrid extends JPanel {
 	 * @param difficulty The difficulty of the new problem
 	 */
 	public void getNewGame(Difficulty difficulty) {
-		this.board = Generator.constructBoard(difficulty);
-		Scanner st = new Scanner(board.getProblem());
+		this.sudoku = Generator.constructBoard(difficulty);
+		Scanner st = new Scanner(sudoku.getProblem());
 
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
@@ -160,7 +160,7 @@ public class SudokuGrid extends JPanel {
 					fields[i][j].setEditable(false);
 					fields[i][j].setForeground(Color.BLACK);
 				} else {
-					fields[i][j].addPropertyChangeListener("value",new ValueListener(board, i, j));
+					fields[i][j].addPropertyChangeListener("value",new ValueListener(sudoku, i, j));
 					fields[i][j].setValue(null);
 					fields[i][j].setEditable(true);
 					fields[i][j].setForeground(new Color(0 , 8, 235));
