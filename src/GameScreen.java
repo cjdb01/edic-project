@@ -91,7 +91,6 @@ public class GameScreen extends JPanel{
 				ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
-				grid.updateSudoku();
 				message.setText(grid.getStatus());
 				if(grid.getStatus().equals("You WIN!")){
 					timer.pause();
