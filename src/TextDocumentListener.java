@@ -22,11 +22,14 @@ public class TextDocumentListener implements DocumentListener{
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		Document d = (Document)e.getDocument();
-		if(d.getLength() > 1){
+		if(d.getLength() == 2){
 			Font font = new Font("text", Font.PLAIN, 15);
 			textField.setFont(font);
 			textField.setForeground(Color.RED);
-			
+		} else if (d.getLength() > 2){
+			Font font = new Font("text", Font.PLAIN, 13);
+			textField.setFont(font);
+			textField.setForeground(Color.RED);
 		}
 	}
 

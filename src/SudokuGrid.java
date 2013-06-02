@@ -29,6 +29,7 @@ public class SudokuGrid extends JPanel {
 		editFormat = new DecimalFormat("#####");
 		editFormat.setParseIntegerOnly(true);
 		editFormat.setMaximumIntegerDigits(5);
+		//spaces displayed between numbers
 		displayFormat = new DecimalFormat("#,#,#,#,#",customSymbol);
 		displayFormat.setParseIntegerOnly(true);
 		displayFormat.setMaximumIntegerDigits(5);
@@ -43,8 +44,7 @@ public class SudokuGrid extends JPanel {
 						.createLineBorder(Color.black));
 				fields[i][j].setFont(LARGE_FONT);
 				fields[i][j].setHorizontalAlignment(JTextField.CENTER);
-				fields[i][j].addPropertyChangeListener("value",new ValueListener());
-				fields[i][j].addPropertyChangeListener("text", new TextListener());
+				fields[i][j].getDocument().addDocumentListener(new TextDocumentListener(fields[i][j]));
 				
 				if (j > 2 && j < 6) {
 					if (i < 3 || (i > 5 && i < 9)) {
@@ -76,8 +76,8 @@ public class SudokuGrid extends JPanel {
 	public void displayAssist() {
 		Vector3D hint = board.getAssist();
 		if (hint != null) {
-			fields[hint.getX()][hint.getY()].setValue(Integer.toString(hint
-					.getZ()));
+			fields[hint.getX()][hint.getY()].setValue(hint
+					.getZ());
 		} else {
 			JOptionPane.showMessageDialog(this, "No more assists!");
 
@@ -120,6 +120,7 @@ public class SudokuGrid extends JPanel {
 					fields[i][j].setEditable(false);
 					fields[i][j].setForeground(Color.BLACK);
 				} else {
+					fields[i][j].addPropertyChangeListener("value",new ValueListener(board, i, j));
 					fields[i][j].setValue(null);
 					fields[i][j].setEditable(true);
 					fields[i][j].setForeground(new Color(0 , 8, 235));
@@ -144,6 +145,9 @@ public class SudokuGrid extends JPanel {
 		fields[4][5].setText("E");
 		fields[4][6].setText("D");
 		fields[4][7].setText("!");
+		for (int i = 1; i <= 7; i++){
+			fields[4][i].setForeground(Color.BLACK);
+		}
 	}
 
 	public void showResume() {
