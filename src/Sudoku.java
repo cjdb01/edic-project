@@ -7,7 +7,7 @@ public class Sudoku
     private final boolean[][] m_editable;
 
     private State m_state;
-    int m_assist;
+    private int m_assist;
     
     public final static int NOT_SET = 0;
     public static enum Completeness { Complete, Incomplete, Invalid };
@@ -82,7 +82,7 @@ public class Sudoku
         return ++m_assist;
     }
     
-    public int removeLife()
+    public int removeAssist()
     {
         return --m_assist;
     }
