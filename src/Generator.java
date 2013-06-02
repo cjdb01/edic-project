@@ -34,7 +34,7 @@ public class Generator {
 			// will generate a minimal sudoku problem
 			// no unique sudoku puzzles have been found with under 17 givens
 			numSpaces = 65;
-			numHints = 81;
+			numHints = 0;
 			break;
 		default:
 			throw(new IllegalArgumentException("Invalid difficulty"));

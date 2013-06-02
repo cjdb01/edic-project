@@ -170,6 +170,10 @@ public class GameScreen extends JPanel{
 		bottom.add(button);
 	}
 	
+	/**
+	 * Loads the given sudoku to grid
+	 * @param sudoku The sudoku to be loaded
+	 */
 	public void loadGame(Sudoku sudoku){
 		grid.load(sudoku);
 		timer.restart();
