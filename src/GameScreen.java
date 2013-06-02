@@ -170,6 +170,13 @@ public class GameScreen extends JPanel{
 		bottom.add(button);
 	}
 	
+	public void loadGame(Sudoku sudoku){
+		grid.load(sudoku);
+		timer.restart();
+		remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "     ");
+		resumeButtonMode();
+	}
+	
 	/**
 	 * Ends the current game
 	 */
