@@ -4,9 +4,6 @@ todo
 * reduce text size each time another number is added
 * when a second number is added to the grid, change the sudoku board to NOT_SET
 * different colours for non-editable, editable and "notes" (when more than one number is in the box)
-* get rid of "0" replace with Sudoku.NOT_SET
-* instead of buttons, dropdown menu/toolbar? - like other applications
-* then could have options as a dropdown - opening up a new option panel
 * implement validate to say something is wrong - can later change this so it's set in the options
 * background graphics - main menu graphics - see mac Chess game options/functionality? - photoshop
    * not completely necessary, but still useful - Nat can possibly whip something up
