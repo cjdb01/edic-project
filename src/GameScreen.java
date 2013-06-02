@@ -1,8 +1,8 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 /**
  *  A class of the Game Screen component
@@ -21,6 +21,7 @@ public class GameScreen extends JPanel{
 	private JButton assist;
 	private JButton newGame;
 	private JButton resume;
+	private JButton saveGame;
 	private boolean paused;
 	private final TimerField timer;
 	private final SudokuGrid grid;
@@ -38,6 +39,7 @@ public class GameScreen extends JPanel{
 		assist = new JButton("Assist");
 		resume = new JButton("Resume");
 		newGame = new JButton("New Problem");
+		saveGame = new JButton("Save");
 		grid = new SudokuGrid();
 		timer = new TimerField();
 		message = new JLabel(" ");
@@ -47,6 +49,14 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.clear();
+			}
+		});
+		
+		saveGame.addActionListener(new
+				ActionListener(){
+			public void actionPerformed(ActionEvent event)
+			{
+				saveGame();
 			}
 		});
 		
@@ -164,6 +174,15 @@ public class GameScreen extends JPanel{
 		timer.pause();
 		message.setText(" ");
 	}	
+	
+	/*
+	 * Saves a game with a timestamp filename
+	 */
+	private void saveGame(){
+		Date now = new Date();
+		Sudoku game = grid.getGame();
+		Interpreter.saveGame(game, timer.getTime(), now.toString());		
+	}
 	
 	/*
 	 * Hides and reveals buttons to represent pause mode

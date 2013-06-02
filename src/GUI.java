@@ -16,6 +16,7 @@ public class GUI implements ActionListener {
 	private static GameScreen gameCard;
 	private static JPanel menuCard;
 	private static JPanel difficultyCard;
+	private static JPanel loadCard;
 	private static CardLayout cardLayout;
 	private static JPanel cards;
 	private static JButton mainMenu;
@@ -26,6 +27,7 @@ public class GUI implements ActionListener {
 	private static JButton hard;
 	private static JButton medium;
 	private static JButton expert;
+	private static JButton load;
 	
 	public static void main(String[] args) {
 		constructAndShowGUI();
@@ -59,6 +61,8 @@ public class GUI implements ActionListener {
 			cardLayout.show(cards, "Menu");
 		} else if(e.getSource() == play){
 			cardLayout.show(cards, "Diff");
+		} else if(e.getSource() == load){
+			cardLayout.show(cards, "Load");
 		}
 	}
 	
@@ -96,8 +100,9 @@ public class GUI implements ActionListener {
 		expert = new JButton("Expert");
 		back = new JButton("Back");
 		play = new JButton("Play");
+		load = new JButton("Load");
 		JButton quit = new JButton("Quit");
-		JButton credits = new JButton("Credits");
+		
 		
 		JPanel diffPanel = new JPanel();
 		JPanel menuPanel = new JPanel();
@@ -121,25 +126,23 @@ public class GUI implements ActionListener {
 			}
 		});
 		menuPanel.add(play);
+		menuPanel.add(load);
 		menuPanel.add(quit);
-		menuPanel.add(credits);
 		
-		JLabel blank = new JLabel("  bleh  ");
-		Font font = new Font("text", 25, Font.PLAIN);
-		blank.setFont(font);
-	
+		
+		
 		difficultyCard.add(diffPanel, BorderLayout.CENTER);
 		//add buttons to menu
 		menuCard.add(menuPanel, BorderLayout.CENTER);
-		JPanel other = new JPanel(new BorderLayout());
-		other.add(menuPanel, BorderLayout.CENTER);
-		other.add(blank, BorderLayout.SOUTH);
-		menuCard.add(other, BorderLayout.CENTER);
+		
+		//HERE IS EMPTY LOAD CARD
+		loadCard = constructScreen();
 		
 		//add cards
 		cards.add("GameScreen", gameCard);
 		cards.add("Menu", menuCard);
 		cards.add("Diff", difficultyCard);
+		cards.add("Load", loadCard);
 		
 		// create listener for buttons
 		ActionListener listener = new GUI();
@@ -153,6 +156,7 @@ public class GUI implements ActionListener {
 		expert.addActionListener(listener);
 		back.addActionListener(listener);
 		play.addActionListener(listener);
+		load.addActionListener(listener);
 		pane.add(cards);
 		cardLayout.show(cards, "Menu");
 		frame.setSize(650, 600);

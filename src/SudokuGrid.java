@@ -193,4 +193,8 @@ public class SudokuGrid extends JPanel {
 		}
 		return true;
 	}
+	
+	public Sudoku getGame(){
+		return sudoku;
+	}
 }
