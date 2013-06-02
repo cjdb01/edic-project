@@ -135,9 +135,9 @@ public class GameScreen extends JPanel{
 		message.setFont(new Font("text", Font.PLAIN, 26));
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		top.add(remainingAssists);
-		top.add(message);
 		
 		this.setLayout(new BorderLayout());
+		this.add(message, BorderLayout.NORTH);
 		this.add(grid, BorderLayout.CENTER);
 		this.add(bottom, BorderLayout.WEST);
 		this.add(top, BorderLayout.SOUTH);

@@ -54,7 +54,7 @@ public class SudokuGrid extends JPanel {
 				this.add(fields[i][j]);	
 			}
 		}
-		setBorder(BorderFactory.createLineBorder(Color.black));
+		//setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	/**
