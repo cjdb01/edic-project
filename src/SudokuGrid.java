@@ -38,8 +38,8 @@ public class SudokuGrid extends JPanel {
 						.createLineBorder(Color.black));
 				fields[i][j].setFont(LARGE_FONT);
 				fields[i][j].setHorizontalAlignment(JTextField.CENTER);
-				fields[i][j].getDocument().addDocumentListener(new 
-						TextDocumentListener(fields[i][j]));
+				//fields[i][j].getDocument().addDocumentListener(new 
+				//		TextDocumentListener(fields[i][j]));
 				
 				if (j > 2 && j < 6) {
 					if (i < 3 || (i > 5 && i < 9)) {
@@ -54,7 +54,7 @@ public class SudokuGrid extends JPanel {
 				this.add(fields[i][j]);	
 			}
 		}
-		//setBorder(BorderFactory.createLineBorder(Color.black));
+		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	/**

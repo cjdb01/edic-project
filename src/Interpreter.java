@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -40,9 +42,9 @@ public class Interpreter
         }
     }
     
-    public static List<String> retrieveSavedGames()
+    public static ArrayList<String> retrieveSavedGames()
     {
-        List<String> saveGames = new ArrayList<String>();
+        ArrayList<String> saveGames = new ArrayList<String>();
         try
         {
             Scanner scanner = new Scanner(new FileReader(saveMaster));
@@ -50,6 +52,7 @@ public class Interpreter
             {
                 saveGames.add(scanner.nextLine());
             }
+            scanner.close();
         }
         catch (FileNotFoundException ex)
         {
@@ -101,6 +104,8 @@ public class Interpreter
                     editable = textToEditable(token);
                 }
             }
+            
+            scanner.close();
         }
         catch (Exception ex)
         {

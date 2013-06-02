@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +42,6 @@ public class GameScreen extends JPanel{
 		saveGame = new JButton("Save");
 		grid = new SudokuGrid();
 		timer = new TimerField();
-		timer.setMaximumSize(new Dimension(200, 50));
 		message = new JLabel(" ");
 
 		clear.addActionListener(new
@@ -58,7 +56,7 @@ public class GameScreen extends JPanel{
 				ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
-				message.setText( "Saved: " + saveGame());
+				saveGame();
 			}
 		});
 		
@@ -88,7 +86,7 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.displayAssist();
-				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "        ");
+				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "     ");
 			}
 		});
 		
@@ -119,15 +117,13 @@ public class GameScreen extends JPanel{
 			}
 		});	
 		bottom = new JPanel();
-		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
-		bottom.add(assist);
 		bottom.add(clear);
 		bottom.add(newGame);
-		bottom.add(validate);
-		bottom.add(pause);
 		bottom.add(resume);
+		bottom.add(pause);
 		bottom.add(timer);
-		bottom.add(saveGame);
+		bottom.add(assist);
+		bottom.add(validate);
 		
 		top = new JPanel();
 		top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
@@ -135,12 +131,12 @@ public class GameScreen extends JPanel{
 		message.setFont(new Font("text", Font.PLAIN, 26));
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		top.add(remainingAssists);
+		top.add(message);
 		
 		this.setLayout(new BorderLayout());
-		this.add(message, BorderLayout.NORTH);
 		this.add(grid, BorderLayout.CENTER);
-		this.add(bottom, BorderLayout.WEST);
-		this.add(top, BorderLayout.SOUTH);
+		this.add(bottom, BorderLayout.SOUTH);
+		this.add(top, BorderLayout.NORTH);
 		resume.setVisible(false);	
 	}
 	
@@ -153,7 +149,7 @@ public class GameScreen extends JPanel{
 	 */
 	public void playNewGame(){
 		grid.getNewGame(difficulty);
-		remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "        ");
+		remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "     ");
 		timer.start();
 		resumeButtonMode();
 	}
@@ -182,11 +178,10 @@ public class GameScreen extends JPanel{
 	/*
 	 * Saves a game with a timestamp filename
 	 */
-	private String saveGame(){
+	private void saveGame(){
 		Date now = new Date();
 		Sudoku game = grid.getGame();
-		Interpreter.saveGame(game, timer.getTime(), now.toString());
-		return now.toString();
+		Interpreter.saveGame(game, timer.getTime(), now.toString());		
 	}
 	
 	/*

@@ -1,8 +1,13 @@
 import java.awt.BorderLayout;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -103,10 +108,12 @@ public class GUI implements ActionListener {
 		load = new JButton("Load");
 		JButton quit = new JButton("Quit");
 		
+		
 		JPanel diffPanel = new JPanel();
 		JPanel menuPanel = new JPanel();
 		diffPanel.setLayout(new GridLayout(6, 1));
 		menuPanel.setLayout(new GridLayout(3, 1));
+		
 		
 		diffPanel.add(kids);
 		diffPanel.add(easy);
@@ -127,6 +134,8 @@ public class GUI implements ActionListener {
 		menuPanel.add(load);
 		menuPanel.add(quit);
 		
+		
+		
 		difficultyCard.add(diffPanel, BorderLayout.CENTER);
 		//add buttons to menu
 		menuCard.add(menuPanel, BorderLayout.CENTER);
@@ -134,17 +143,64 @@ public class GUI implements ActionListener {
 		//HERE IS EMPTY LOAD CARD
 		loadCard = constructScreen();
 	
-        JList loadList = new JList(Interpreter.retrieveSavedGames());
+        ArrayList<String> savedGames = Interpreter.retrieveSavedGames();
+        ListModel model = new DefaultListModel();
+        for (String str : savedGames)
+        {
+        	((DefaultListModel) model).addElement(str);
+        }
+        
+        JList loadList = new JList(model);
         loadList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         loadList.setLayoutOrientation(JList.VERTICAL_WRAP);
-        list.setVisibleRowCount(-1);
-        list.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    setButton.doClick(); //emulate button click
-                }
+        loadList.setVisibleRowCount(-1);
+
+        String gameToLoad = (String)loadList.getSelectedValue();
+        
+        JButton loadFile = new JButton("Load");
+        
+        loadList.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+			//	gameToLoad = (String)loadList.getSelectedValue();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+        });
+        
+        loadFile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	// LOAD GAME HERE
             }
         });
+        
+        loadCard.add(loadFile);
+        loadCard.add(loadList);
         
 		//add cards
 		cards.add("GameScreen", gameCard);
@@ -167,7 +223,7 @@ public class GUI implements ActionListener {
 		load.addActionListener(listener);
 		pane.add(cards);
 		cardLayout.show(cards, "Menu");
-		frame.setSize(800, 600);
+		frame.setSize(650, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
