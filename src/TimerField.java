@@ -8,7 +8,7 @@ public class TimerField extends JPanel{
 	private final JTextField textField;
 	private final int FIELD_WIDTH = 4;
 	private final int DELAY = 1000;
-	ActionListener listener;
+	private ActionListener listener;
 	private Timer t;
 	private int seconds;
 	private int minutes;
