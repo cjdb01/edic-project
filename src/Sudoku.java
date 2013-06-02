@@ -12,8 +12,6 @@ public class Sudoku
     public final static int NOT_SET = 0;
     public static enum Completeness { Complete, Incomplete, Invalid };
     
-    public static enum Completeness { Complete, Incomplete, Invalid };
-    
     public Sudoku(int[][] toSolve, final int[][] solved, int assist)
     {
     	m_solved = new int[9][9];
@@ -22,10 +20,6 @@ public class Sudoku
     	m_assist = assist;
         m_state = new State(null, null, m_assist, null);
         
-<<<<<<< HEAD
-        
-=======
->>>>>>> 28415a2412213ca70f9249d2b1103a5799712a3e
         for (int i = 0; i < 9; ++i)
         {
             System.arraycopy(toSolve[i], 0, m_toSolve[i], 0, 9);
