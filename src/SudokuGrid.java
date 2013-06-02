@@ -98,9 +98,9 @@ public class SudokuGrid extends JPanel {
 
 	public String getStatus() {
 
-		if (sudoku.validate() == Sudoku.Completeness.Invalid) {
+		if (board.validate() == Sudoku.Completeness.Invalid) {
 			return "Something is wrong!";
-		} else if(sudoku.validate() == Sudoku.Completeness.Incomplete){
+		} else if(board.validate() == Sudoku.Completeness.Incomplete){
 			return "Everything is OK, keep going!";
 		} else {
 			return "YOU WIN!";	
@@ -209,22 +209,15 @@ public class SudokuGrid extends JPanel {
 	 * @return amount of assists remaining
 	 */
 	public int getAssists(){
-		return sudoku.getRemainingAssists();
+		return board.getRemainingAssists();
 	}
 	
 	/*
 	 * Returns true if the string is a valid input for the grid
 	 */
-	private boolean isValid(String string){
-		for(int i = 0; i < string.length(); i++){
-			if(string.charAt(i) < '0' || string.charAt(i) > '9' || string.charAt(i) != ' '){
-				return true;
-			}
-		}
-		return true;
-	}
+	
 	
 	public Sudoku getGame(){
-		return sudoku;
+		return board;
 	}
 }
