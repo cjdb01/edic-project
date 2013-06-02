@@ -103,12 +103,10 @@ public class GUI implements ActionListener {
 		load = new JButton("Load");
 		JButton quit = new JButton("Quit");
 		
-		
 		JPanel diffPanel = new JPanel();
 		JPanel menuPanel = new JPanel();
 		diffPanel.setLayout(new GridLayout(6, 1));
 		menuPanel.setLayout(new GridLayout(3, 1));
-		
 		
 		diffPanel.add(kids);
 		diffPanel.add(easy);
@@ -128,8 +126,6 @@ public class GUI implements ActionListener {
 		menuPanel.add(play);
 		menuPanel.add(load);
 		menuPanel.add(quit);
-		
-		
 		
 		difficultyCard.add(diffPanel, BorderLayout.CENTER);
 		//add buttons to menu
@@ -159,7 +155,7 @@ public class GUI implements ActionListener {
 		load.addActionListener(listener);
 		pane.add(cards);
 		cardLayout.show(cards, "Menu");
-		frame.setSize(650, 600);
+		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
