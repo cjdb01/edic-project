@@ -1,10 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 
 /**
  * A Textbox based Sudoku Grid class that stores a sudoku problem
@@ -13,13 +16,15 @@ import javax.swing.text.Document;
  */
 public class SudokuGrid extends JPanel {
 
-	JTextField[][] fields;
-	Sudoku sudoku;
+	JFormattedTextField[][] fields;
+	Sudoku board;
 	String[][] userBoard;
 	final int SIZE = 9;
 	final int FIELD_WIDTH = 2;
 	final Font LARGE_FONT = new Font("text", Font.PLAIN, 18); // font for numbers given in problem
 	private static final long serialVersionUID = 1L;
+	private NumberFormat editFormat;
+	private NumberFormat displayFormat;
 
 	
 	/**
@@ -27,13 +32,22 @@ public class SudokuGrid extends JPanel {
 	 */
 	public SudokuGrid() {
 		super();
-		fields = new JTextField[SIZE][SIZE];
+		DecimalFormatSymbols customSymbol = new DecimalFormatSymbols();
+		customSymbol.setGroupingSeparator(' ');
+		editFormat = new DecimalFormat("#####");
+		editFormat.setParseIntegerOnly(true);
+		editFormat.setMaximumIntegerDigits(5);
+		//spaces displayed between numbers
+		displayFormat = new DecimalFormat("#,#,#,#,#",customSymbol);
+		displayFormat.setParseIntegerOnly(true);
+		displayFormat.setMaximumIntegerDigits(5);
+		fields = new JFormattedTextField[SIZE][SIZE];
 		this.setLayout(new GridLayout(SIZE, SIZE));
 		userBoard = new String[SIZE][SIZE];
 		// paint each subgrid with a different colour
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
-				fields[i][j] = new JTextField(FIELD_WIDTH);
+				fields[i][j] = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(displayFormat), new NumberFormatter(displayFormat), new NumberFormatter(editFormat)));
 				fields[i][j].setBorder(BorderFactory
 						.createLineBorder(Color.black));
 				fields[i][j].setFont(LARGE_FONT);
@@ -54,23 +68,33 @@ public class SudokuGrid extends JPanel {
 				this.add(fields[i][j]);	
 			}
 		}
-		//setBorder(BorderFactory.createLineBorder(Color.black));
+		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
+	private MaskFormatter createFormatter(String s){
+		MaskFormatter formatter = null;
+		try{
+			formatter = new MaskFormatter(s);
+		} catch (java.text.ParseException exc){
+			System.err.println("Invalid formatter: " + exc.getMessage());
+			System.exit(-1);
+		}
+		return formatter;
+	}
+	
 	/**
 	 * Displays an assist on the grid
 	 */
 	public void displayAssist() {
-		Vector3D hint = sudoku.getAssist();
+		Vector3D hint = board.getAssist();
 		if (hint != null) {
-			fields[hint.getX()][hint.getY()].setText(Integer.toString(hint
-					.getZ()));
+			fields[hint.getX()][hint.getY()].setValue(hint
+					.getZ());
 		} else {
 			JOptionPane.showMessageDialog(this, "No more assists!");
 
 		}
 	}
-
 
 	public String getStatus() {
 
@@ -90,33 +114,12 @@ public class SudokuGrid extends JPanel {
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
 				if (fields[i][j].isEditable()) {
-					fields[i][j].setText("");
+					fields[i][j].setValue(null);
 					fields[i][j].setFont(LARGE_FONT);
 				}
 			}
 		}
 
-	}
-
-	/**
-	 * Updates the sudoku to match the grid
-	 */
-	public void updateSudoku(){
-		for(int i = 0; i < SIZE; i++){
-			for(int j = 0; j < SIZE; j++){
-				String text = fields[i][j].getText();
-				if(isValid(text)){
-					if(text.length() == 1 && !text.equals(" ")){
-						sudoku.setNode(i, j, Integer.parseInt(text));
-					} else if(text.equals(" ") || text.length()==0){
-						sudoku.setNode(i, j, 0);
-					}
-				} else {
-					JOptionPane.showMessageDialog(this, "Please enter numbers!");
-					return;
-				}
-			}
-		}
 	}
 	
 	/**
@@ -124,24 +127,26 @@ public class SudokuGrid extends JPanel {
 	 * @param difficulty The difficulty of the new problem
 	 */
 	public void getNewGame(Difficulty difficulty) {
-		this.sudoku = Generator.constructBoard(difficulty);
-		Scanner st = new Scanner(sudoku.getProblem());
+		this.board = Generator.constructBoard(difficulty);
+		Scanner st = new Scanner(board.getProblem());
 
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
 				int number = st.nextInt();
 				if (number != 0) {
-					fields[i][j].setText(Integer.toString(number));
+					fields[i][j].setValue(number);
 					fields[i][j].setEditable(false);
 					fields[i][j].setForeground(Color.BLACK);
 				} else {
-					fields[i][j].setText("");
+					fields[i][j].addPropertyChangeListener("value",new ValueListener(board, i, j));
+					fields[i][j].setValue(null);
 					fields[i][j].setEditable(true);
 					fields[i][j].setForeground(new Color(0 , 8, 235));
 				}
 				fields[i][j].setFont(LARGE_FONT);
 			}
 		}
+		st.close();
 	}
 
 	/**
@@ -161,6 +166,9 @@ public class SudokuGrid extends JPanel {
 		fields[4][5].setText("E");
 		fields[4][6].setText("D");
 		fields[4][7].setText("!");
+		for (int i = 1; i <= 7; i++){
+			fields[4][i].setForeground(Color.BLACK);
+		}
 	}
 
 	/**
