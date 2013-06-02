@@ -88,7 +88,7 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.displayAssist();
-				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "        ");
+				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "              ");
 			}
 		});
 		
@@ -119,15 +119,14 @@ public class GameScreen extends JPanel{
 			}
 		});	
 		bottom = new JPanel();
-		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
+		bottom.setLayout(new GridLayout(8, 1));
 		bottom.add(assist);
 		bottom.add(clear);
-		bottom.add(newGame);
 		bottom.add(validate);
 		bottom.add(pause);
-		bottom.add(resume);
-		bottom.add(timer);
 		bottom.add(saveGame);
+		bottom.add(resume);
+		bottom.add(newGame);
 		
 		top = new JPanel();
 		top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
@@ -135,6 +134,7 @@ public class GameScreen extends JPanel{
 		message.setFont(new Font("text", Font.PLAIN, 26));
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		top.add(remainingAssists);
+		top.add(timer);
 		
 		this.setLayout(new BorderLayout());
 		this.add(message, BorderLayout.NORTH);
@@ -153,7 +153,7 @@ public class GameScreen extends JPanel{
 	 */
 	public void playNewGame(){
 		grid.getNewGame(difficulty);
-		remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "        ");
+		remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "              ");
 		timer.start();
 		resumeButtonMode();
 	}
