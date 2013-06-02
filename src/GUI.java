@@ -133,19 +133,7 @@ public class GUI implements ActionListener {
 		
 		//HERE IS EMPTY LOAD CARD
 		loadCard = constructScreen();
-	
-        JList loadList = new JList(Interpreter.retrieveSavedGames());
-        loadList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        loadList.setLayoutOrientation(JList.VERTICAL_WRAP);
-        list.setVisibleRowCount(-1);
-        list.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    setButton.doClick(); //emulate button click
-                }
-            }
-        });
-        
+
 		//add cards
 		cards.add("GameScreen", gameCard);
 		cards.add("Menu", menuCard);

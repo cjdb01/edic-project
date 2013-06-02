@@ -40,9 +40,9 @@ public class Interpreter
         }
     }
     
-    public static List<String> retrieveSavedGames()
+    public static ArrayList<String> retrieveSavedGames()
     {
-        List<String> saveGames = new ArrayList<String>();
+        ArrayList<String> saveGames = new ArrayList<String>();
         try
         {
             Scanner scanner = new Scanner(new FileReader(saveMaster));
@@ -59,7 +59,7 @@ public class Interpreter
         return saveGames;
     }
     
-    public static Sudoku loadGame(final String filename)
+    public static Sudoku loadGame(String filename)
     {
         int assists = 0;
         int time = 0;
