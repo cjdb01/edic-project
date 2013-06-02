@@ -9,6 +9,8 @@ public class Sudoku
     private State m_state;
     int m_assist;
     
+    public final static int NOT_SET = 0;
+    
     public Sudoku(int[][] toSolve, final int[][] solved, int assist)
     {
     	m_solved = new int[9][9];
@@ -16,6 +18,8 @@ public class Sudoku
     	m_editable = new boolean[9][9];
     	m_assist = assist;
         m_state = new State(null, null, m_assist, null);
+        
+        enum Completeness { Complete, Incomplete, Invalid };
         
         for (int i = 0; i < 9; ++i)
         {
@@ -84,30 +88,25 @@ public class Sudoku
         return --m_assist;
     }
     
-    public boolean validate()
+    public Completeness validate()
     {
+        Completeness completeness = Completeness.Complete;
         for (int i = 0; i != 9; ++i)
         {
             for (int j = 0; j != 9; ++j)
             {
-                if (m_toSolve[i][j] == 0){
-                	//do nothing
-                } else if(m_toSolve[i][j] != m_solved[i][j])
-                    return false;
+                if (m_toSolve[i][j] == NOT_SET)
+                {
+                	completeness = Completenes.Incomplete;
+                }
+                else if(m_toSolve[i][j] != m_solved[i][j] && m_toSolve != NOT_SET)
+                {
+                    return Completeness.Invalid;
                 }
             }
-        
-        return true;
-    }
-    
-    public void printSudoku(){
-    	for(int i = 0; i < 9; i++){
-    		for(int j = 0; j < 9; j++){
-    			System.out.printf("%d", m_toSolve[i][j]);
-    		}
-    		System.out.println();
-    		
-    	}
+        }
+
+        return Completeness.Valid;
     }
     
     public Vector3D getAssist()
@@ -126,7 +125,7 @@ public class Sudoku
             x = generator.nextInt(9);
             y = generator.nextInt(9);
         }
-        while (m_toSolve[x][y] != 0);
+        while (m_toSolve[x][y] != NOT_SET);
         
         --m_assist;
         m_state.loseAssist();
@@ -201,18 +200,19 @@ public class Sudoku
     	return editable;
     }
     
-    public boolean isComplete(){
-    	  for (int i = 0; i != 9; ++i)
-          {
-              for (int j = 0; j != 9; ++j)
-              {
-                if(m_toSolve[i][j] != m_solved[i][j])
-                      return false;
-                  }
-              }
+    /*public boolean isComplete()
+    {
+        for (int i = 0; i != 9; ++i)
+        {
+            for (int j = 0; j != 9; ++j)
+            {
+                if (m_toSolve[i][j] != m_solved[i][j])
+                {
+                   return false;
+                }
+            }
+        }
           
-          return true;
-      }
-    
-	public final static int NOT_SET = 0;
+        return true;
+    }*/
 }
