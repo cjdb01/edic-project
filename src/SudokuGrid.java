@@ -6,7 +6,6 @@ import java.text.NumberFormat;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 /**
@@ -69,17 +68,6 @@ public class SudokuGrid extends JPanel {
 			}
 		}
 		setBorder(BorderFactory.createLineBorder(Color.black));
-	}
-
-	private MaskFormatter createFormatter(String s){
-		MaskFormatter formatter = null;
-		try{
-			formatter = new MaskFormatter(s);
-		} catch (java.text.ParseException exc){
-			System.err.println("Invalid formatter: " + exc.getMessage());
-			System.exit(-1);
-		}
-		return formatter;
 	}
 	
 	/**

@@ -88,7 +88,7 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.displayAssist();
-				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + " ");
+				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "                            ");
 			}
 		});
 		

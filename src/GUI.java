@@ -120,8 +120,6 @@ public class GUI implements ActionListener {
 		menuPanel.add(play);
 		menuPanel.add(quit);
 		
-		
-		
 		difficultyCard.add(diffPanel, BorderLayout.CENTER);
 		//add buttons to menu
 		menuCard.add(menuPanel, BorderLayout.CENTER);
