@@ -188,7 +188,7 @@ public class GUI implements ActionListener {
 		load.addActionListener(listener);
 		pane.add(cards);
 		cardLayout.show(cards, "Menu");
-		frame.setSize(650, 600);
+		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
