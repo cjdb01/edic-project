@@ -9,7 +9,7 @@ public class Interpreter
     {
         StringBuffer buffer = new StringBuffer();
         
-        buffer.append("time = " + Double.toString(time) + "\n");
+        buffer.append("time = " + Integer.toString(time) + "\n");
         buffer.append("assist = " + Integer.toString(game.getRemainingAssists()) + "\n");
         buffer.append("board = { " + game.getProblem() + " }\n");
         buffer.append("solution = { " + game.getSolution() + " }\n");
