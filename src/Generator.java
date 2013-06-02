@@ -15,24 +15,25 @@ public class Generator {
 		// can do other things with difficulty later
 		switch(difficulty) {
 		case KIDS:	
-			numSpaces = 5;
+			numSpaces = 10;
 			numHints = 5;
 			break;
 		case EASY:
-			numSpaces = 10;
+			numSpaces = 20;
 			numHints = 3;
 			break;
 		case MEDIUM:
-			numSpaces = 15;
+			numSpaces = 40;
 			numHints = 1;
 			break;
 		case HARD:
-			numSpaces = 20;
+			numSpaces = 50;
 			numHints = 0;
 			break;
 		case EXPERT:
 			// will generate a minimal sudoku problem
-			numSpaces = 81;
+			// no unique sudoku puzzles have been found with under 17 givens
+			numSpaces = 65;
 			numHints = 81;
 			break;
 		default:
