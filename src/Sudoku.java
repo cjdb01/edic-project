@@ -11,7 +11,7 @@ public class Sudoku
     
     public final static int NOT_SET = 0;
     
-    enum Completeness { Complete, Incomplete, Invalid };
+    public enum Completeness { Complete, Incomplete, Invalid };
     
     public Sudoku(int[][] toSolve, final int[][] solved, int assist)
     {
