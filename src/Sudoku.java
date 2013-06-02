@@ -11,6 +11,8 @@ public class Sudoku
     
     public final static int NOT_SET = 0;
     
+    enum Completeness { Complete, Incomplete, Invalid };
+    
     public Sudoku(int[][] toSolve, final int[][] solved, int assist)
     {
     	m_solved = new int[9][9];
@@ -18,8 +20,6 @@ public class Sudoku
     	m_editable = new boolean[9][9];
     	m_assist = assist;
         m_state = new State(null, null, m_assist, null);
-        
-        enum Completeness { Complete, Incomplete, Invalid };
         
         for (int i = 0; i < 9; ++i)
         {
