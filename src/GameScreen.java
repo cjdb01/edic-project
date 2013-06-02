@@ -3,7 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
+/**
+ *  A class of the Game Screen component
+ * @author aydinitil
+ *
+ */
 public class GameScreen extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
@@ -16,12 +22,16 @@ public class GameScreen extends JPanel{
 	private JButton assist;
 	private JButton newGame;
 	private JButton resume;
+	private JButton saveGame;
 	private boolean paused;
 	private final TimerField timer;
 	private final SudokuGrid grid;
 	private Difficulty difficulty;
 	private JPanel bottom;
 	
+	/**
+	 * Constructs the Game Screen
+	 */
 	public GameScreen (){
 		super();
 		clear = new JButton("Clear");
@@ -30,8 +40,10 @@ public class GameScreen extends JPanel{
 		assist = new JButton("Assist");
 		resume = new JButton("Resume");
 		newGame = new JButton("New Problem");
+		saveGame = new JButton("Save");
 		grid = new SudokuGrid();
 		timer = new TimerField();
+		timer.setMaximumSize(new Dimension(200, 50));
 		message = new JLabel(" ");
 
 		clear.addActionListener(new
@@ -39,6 +51,14 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.clear();
+			}
+		});
+		
+		saveGame.addActionListener(new
+				ActionListener(){
+			public void actionPerformed(ActionEvent event)
+			{
+				message.setText( "Saved: " + saveGame());
 			}
 		});
 		
@@ -68,7 +88,7 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.displayAssist();
-				remainingAssists.setText("Remaining Assists: " + grid.getAssists() + "     ");
+				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + " ");
 			}
 		});
 		
@@ -98,13 +118,14 @@ public class GameScreen extends JPanel{
 			}
 		});	
 		bottom = new JPanel();
-		bottom.add(clear);
-		bottom.add(newGame);
-		bottom.add(resume);
-		bottom.add(pause);
-		bottom.add(timer);
+		bottom.setLayout(new GridLayout(8, 1));
 		bottom.add(assist);
+		bottom.add(clear);
 		bottom.add(validate);
+		bottom.add(pause);
+		bottom.add(saveGame);
+		bottom.add(resume);
+		bottom.add(newGame);
 		
 		top = new JPanel();
 		top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
@@ -112,12 +133,14 @@ public class GameScreen extends JPanel{
 		message.setFont(new Font("text", Font.PLAIN, 26));
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		top.add(remainingAssists);
-		top.add(message);
+		top.add(timer);
+		timer.setMaximumSize(new Dimension(400, 200));
 		
 		this.setLayout(new BorderLayout());
+		this.add(message, BorderLayout.NORTH);
 		this.add(grid, BorderLayout.CENTER);
-		this.add(bottom, BorderLayout.SOUTH);
-		this.add(top, BorderLayout.NORTH);
+		this.add(bottom, BorderLayout.WEST);
+		this.add(top, BorderLayout.SOUTH);
 		resume.setVisible(false);	
 	}
 	
@@ -125,9 +148,12 @@ public class GameScreen extends JPanel{
 		return difficulty;
 	}
 	
+	/**
+	 * Begins a new game
+	 */
 	public void playNewGame(){
 		grid.getNewGame(difficulty);
-		remainingAssists.setText("Remaining Assists: " + grid.getAssists() + "     ");
+		remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "                           ");
 		timer.start();
 		resumeButtonMode();
 	}
@@ -136,16 +162,36 @@ public class GameScreen extends JPanel{
 		this.difficulty = difficulty;
 	}
 	
+	/**
+	 * Adds the button to the button panel
+	 * @param button The Button to be added
+	 */
 	public void addButton(JButton button){
 		bottom.add(button);
 	}
 	
+	/**
+	 * Ends the current game
+	 */
 	public void stopGame(){
 		timer.restart();
 		timer.pause();
 		message.setText(" ");
 	}	
 	
+	/*
+	 * Saves a game with a timestamp filename
+	 */
+	private String saveGame(){
+		Date now = new Date();
+		Sudoku game = grid.getGame();
+		Interpreter.saveGame(game, timer.getTime(), now.toString());
+		return now.toString();
+	}
+	
+	/*
+	 * Hides and reveals buttons to represent pause mode
+	 */
 	private void pauseButtonMode(){
 		
 		clear.setVisible(false);
@@ -156,6 +202,9 @@ public class GameScreen extends JPanel{
 
 	}
 	
+	/*
+	 * Hides and reveals buttons to represent resume mode
+	 */
 	private void resumeButtonMode(){
 		clear.setVisible(true);
 		pause.setVisible(true);

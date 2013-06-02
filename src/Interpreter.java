@@ -5,20 +5,58 @@ import java.util.StringTokenizer;
 
 public class Interpreter
 {
+    private static final String saveMaster = "save_master";
+    
     public static void saveGame(final Sudoku game, final int time, final String filename)
     {
         StringBuffer buffer = new StringBuffer();
         
-        buffer.append("time = " + Double.toString(time) + "\n");
+        buffer.append("time = " + Integer.toString(time) + "\n");
         buffer.append("assist = " + Integer.toString(game.getRemainingAssists()) + "\n");
         buffer.append("board = { " + game.getProblem() + " }\n");
         buffer.append("solution = { " + game.getSolution() + " }\n");
         buffer.append("editable = { " + game.getEditable() + "}");
-        try{
-        PrintWriter writer = new PrintWriter(filename, "UTF-8");
-        writer.print(buffer.toString());
-        writer.close();
-        }catch (Exception ex) {}
+        
+        try
+        {
+            PrintWriter writer = new PrintWriter(filename, "UTF-8");
+            writer.print(buffer.toString());
+            writer.close();
+            
+            ArrayList<String> saveGames = retrieveSavedGames();
+            saveGames.add(filename);
+            writer = new PrintWriter(saveMaster, "UTF-8");
+            
+            for (String str : saveGames)
+            {
+                writer.println(str);
+            }
+            
+            writer.close();
+        }
+        catch (Exception ex)
+        {
+            
+        }
+    }
+    
+    public static ArrayList<String> retrieveSavedGames()
+    {
+        ArrayList<String> saveGames = new ArrayList<String>();
+        try
+        {
+            Scanner scanner = new Scanner(new FileReader(saveMaster));
+            while (scanner.hasNext())
+            {
+                saveGames.add(scanner.nextLine());
+            }
+        }
+        catch (FileNotFoundException ex)
+        {
+            // Just return an empty list...
+        }
+        
+        return saveGames;
     }
     
     public static Sudoku loadGame(String filename)
@@ -105,15 +143,5 @@ public class Interpreter
         }
         
         return board;
-    }
-    
-    public static boolean saveProfile(Profile profile)
-    {
-        return true;
-    }
-    
-    public static Profile loadProfile(String filename)
-    {
-        return new Profile("");
     }
 }

@@ -5,6 +5,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
+
+/**
+ * A custom DocumentListener that is able to modify font size and color as input is entered
+ * @author aydinitil
+ *
+ */
 public class TextDocumentListener implements DocumentListener{
 	
 	JTextField textField;
