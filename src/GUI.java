@@ -1,14 +1,8 @@
 import java.awt.BorderLayout;
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 
 /**
@@ -21,7 +15,6 @@ public class GUI implements ActionListener {
 	private static GameScreen gameCard;
 	private static JPanel menuCard;
 	private static JPanel difficultyCard;
-	private static JPanel loadCard;
 	private static CardLayout cardLayout;
 	private static JPanel cards;
 	private static JButton mainMenu;
@@ -32,9 +25,6 @@ public class GUI implements ActionListener {
 	private static JButton hard;
 	private static JButton medium;
 	private static JButton expert;
-	private static JButton load;
-	private static JButton loadFile;
-	private static String file;
 	
 	public static void main(String[] args) {
 		constructAndShowGUI();
@@ -68,11 +58,6 @@ public class GUI implements ActionListener {
 			cardLayout.show(cards, "Menu");
 		} else if(e.getSource() == play){
 			cardLayout.show(cards, "Diff");
-		} else if(e.getSource() == load){
-			cardLayout.show(cards, "Load");
-		} else if(e.getSource() == loadFile){
-			cardLayout.show(cards, "GameScreen");
-			gameCard.loadGame(Interpreter.loadGame(file));
 		}
 	}
 	
@@ -110,16 +95,12 @@ public class GUI implements ActionListener {
 		expert = new JButton("Expert");
 		back = new JButton("Back");
 		play = new JButton("Play");
-		load = new JButton("Load");
-		loadFile = new JButton("Load File");
 		JButton quit = new JButton("Quit");
-		
 		
 		JPanel diffPanel = new JPanel();
 		JPanel menuPanel = new JPanel();
 		diffPanel.setLayout(new GridLayout(6, 1));
-		menuPanel.setLayout(new GridLayout(3, 1));
-		
+		menuPanel.setLayout(new GridLayout(2, 1));
 		
 		diffPanel.add(kids);
 		diffPanel.add(easy);
@@ -137,7 +118,6 @@ public class GUI implements ActionListener {
 			}
 		});
 		menuPanel.add(play);
-		menuPanel.add(load);
 		menuPanel.add(quit);
 		
 		
@@ -145,38 +125,16 @@ public class GUI implements ActionListener {
 		difficultyCard.add(diffPanel, BorderLayout.CENTER);
 		//add buttons to menu
 		menuCard.add(menuPanel, BorderLayout.CENTER);
-		
-		//HERE IS EMPTY LOAD CARD
-		loadCard = constructScreen();
-	
-        ArrayList<String> savedGames = Interpreter.retrieveSavedGames();
-        ListModel model = new DefaultListModel();
-        for (String str : savedGames)
-        {
-        	((DefaultListModel) model).addElement(str);
-        }
-        
-        JList loadList = new JList(model);
-        loadList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        loadList.setLayoutOrientation(JList.VERTICAL_WRAP);
-        loadList.setVisibleRowCount(-1);
 
-        file = (String)loadList.getSelectedValue();
-        
-        loadCard.add(loadFile, BorderLayout.SOUTH);
-        loadCard.add(loadList, BorderLayout.CENTER);
-        
 		//add cards
 		cards.add("GameScreen", gameCard);
 		cards.add("Menu", menuCard);
 		cards.add("Diff", difficultyCard);
-		cards.add("Load", loadCard);
 		
 		// create listener for buttons
 		ActionListener listener = new GUI();
 		
-		//add listeners to static buttons
-		loadFile.addActionListener(listener);
+		//add listeners to static button
 		mainMenu.addActionListener(listener);
 		kids.addActionListener(listener);
 		easy.addActionListener(listener);
@@ -185,7 +143,6 @@ public class GUI implements ActionListener {
 		expert.addActionListener(listener);
 		back.addActionListener(listener);
 		play.addActionListener(listener);
-		load.addActionListener(listener);
 		pane.add(cards);
 		cardLayout.show(cards, "Menu");
 		frame.setSize(800, 600);
