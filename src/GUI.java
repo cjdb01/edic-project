@@ -6,112 +6,29 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+/**
+ * The GUI class for the Sudoku Game
+ * @author aydinitil
+ *
+ */
 public class GUI implements ActionListener {
 	
-	static GameScreen gameCard;
-	static JPanel menuCard;
-	static CardLayout cardLayout;
-	static JPanel cards;
-	static JButton mainMenu;
-	static JButton kids;
-	static JButton easy;
-	static JButton hard;
-	static JButton medium;
-	static JButton expert;
-	public static Difficulty difficulty;
+	private static GameScreen gameCard;
+	private static JPanel menuCard;
+	private static JPanel difficultyCard;
+	private static CardLayout cardLayout;
+	private static JPanel cards;
+	private static JButton mainMenu;
+	private static JButton play;
+	private static JButton back;
+	private static JButton kids;
+	private static JButton easy;
+	private static JButton hard;
+	private static JButton medium;
+	private static JButton expert;
 	
 	public static void main(String[] args) {
-
-		JFrame frame = new JFrame("Interactive Sudoku");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel pane = (JPanel) frame.getContentPane();
-		cards = new JPanel();
-		cardLayout = new CardLayout();
-		cards.setLayout(cardLayout);
-		
-		// create listener for buttons
-		ActionListener listener = new GUI();
-		
-		//initialise cards
-		gameCard = new GameScreen();
-		menuCard = new JPanel();
-		menuCard.setLayout(new BorderLayout());
-		
-		//initialise buttons
-		mainMenu = new JButton("Menu");
-		kids = new JButton("Kids");
-		easy = new JButton("Easy");
-		medium = new JButton("Medium");
-		hard = new JButton("Hard");
-		expert = new JButton("Expert");
-		
-		JPanel rightPanel = new JPanel();
-		JPanel leftPanel = new JPanel();
-		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-		leftPanel.setLayout(new GridLayout(4, 1));
-		leftPanel.setSize(new Dimension(400, 200));
-		
-		rightPanel.add(kids);
-		rightPanel.add(easy);
-		rightPanel.add(medium);
-		rightPanel.add(hard);
-		rightPanel.add(expert);
-		
-		//Menu buttons
-		JButton play = new JButton("Play");
-		JButton options = new JButton("Options");
-		JButton help = new JButton("Quit");
-		JButton credits = new JButton("Credits");
-		
-		help.addActionListener(new
-				ActionListener(){
-			public void actionPerformed(ActionEvent e){
-		
-				System.exit(0);
-			}
-		});
-		
-		leftPanel.add(play);
-		leftPanel.add(options);
-		leftPanel.add(help);
-		leftPanel.add(credits);
-		
-		//add static buttons to cards
-		gameCard.addButton(mainMenu);
-		menuCard.add(rightPanel, BorderLayout.EAST);
-		//add buttons to menu
-		menuCard.add(leftPanel, BorderLayout.CENTER);
-		JLabel title = new JLabel("Sudoku");
-		title.setFont(new Font("text", Font.PLAIN, 25));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		menuCard.add(title, BorderLayout.NORTH);
-		
-		//add cards
-		cards.add("GameScreen", gameCard);
-		cards.add("Menu", menuCard);
-		
-		//add listeners to static buttons
-		mainMenu.addActionListener(listener);
-		kids.addActionListener(listener);
-		easy.addActionListener(listener);
-		medium.addActionListener(listener);
-		hard.addActionListener(listener);
-		expert.addActionListener(listener);
-		
-		play.addActionListener(new
-				ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				showDifficultyButtons();
-			}
-		});
-		
-		hideDifficultyButtons();
-		pane.add(cards);
-		cardLayout.show(cards, "Menu");
-		frame.setSize(650, 600);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setVisible(true);
+		constructAndShowGUI();
 	}
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == kids){
@@ -137,25 +54,104 @@ public class GUI implements ActionListener {
 			cardLayout.show(cards, "GameScreen");
 		} else if(e.getSource() == mainMenu){
 			gameCard.stopGame();
-			hideDifficultyButtons();
 			cardLayout.show(cards, "Menu");
+		} else if(e.getSource() == back){
+			cardLayout.show(cards, "Menu");
+		} else if(e.getSource() == play){
+			cardLayout.show(cards, "Diff");
 		}
 	}
 	
-	private static void hideDifficultyButtons(){
-		kids.setVisible(false);
-		easy.setVisible(false);
-		medium.setVisible(false);
-		hard.setVisible(false);
-		expert.setVisible(false);
+	private static JPanel constructScreen(){
+		
+		JPanel screen = new JPanel();
+		screen.setLayout(new BorderLayout());
+		JLabel title = new JLabel("Sudoku");
+		title.setFont(new Font("text", Font.PLAIN, 25));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		screen.add(title, BorderLayout.NORTH);
+		
+		return screen;
 	}
 	
-	private static void showDifficultyButtons(){
-		kids.setVisible(true);
-		easy.setVisible(true);
-		medium.setVisible(true);
-		hard.setVisible(true);
-		expert.setVisible(true);
+	private static void constructAndShowGUI(){
+		JFrame frame = new JFrame("Interactive Sudoku");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel pane = (JPanel) frame.getContentPane();
+		cards = new JPanel();
+		cardLayout = new CardLayout();
+		cards.setLayout(cardLayout);
+		
+		//initialize cards
+		gameCard = new GameScreen();
+		menuCard = constructScreen();
+		difficultyCard = constructScreen();
+		
+		//initialize buttons
+		mainMenu = new JButton("Menu");
+		kids = new JButton("Kids");
+		easy = new JButton("Easy");
+		medium = new JButton("Medium");
+		hard = new JButton("Hard");
+		expert = new JButton("Expert");
+		back = new JButton("Back");
+		play = new JButton("Play");
+		JButton quit = new JButton("Quit");
+		JButton credits = new JButton("Credits");
+		
+		JPanel diffPanel = new JPanel();
+		JPanel menuPanel = new JPanel();
+		diffPanel.setLayout(new GridLayout(6, 1));
+		menuPanel.setLayout(new GridLayout(3, 1));
+		
+		diffPanel.add(kids);
+		diffPanel.add(easy);
+		diffPanel.add(medium);
+		diffPanel.add(hard);
+		diffPanel.add(expert);
+		diffPanel.add(back);
+		gameCard.addButton(mainMenu);
+	
+		quit.addActionListener(new
+				ActionListener(){
+			public void actionPerformed(ActionEvent e){
+		
+				System.exit(0);
+			}
+		});
+		
+		
+		menuPanel.add(play);
+		menuPanel.add(quit);
+		menuPanel.add(credits);
+		
+		difficultyCard.add(diffPanel, BorderLayout.CENTER);
+		//add buttons to menu
+		menuCard.add(menuPanel, BorderLayout.CENTER);
+		
+		//add cards
+		cards.add("GameScreen", gameCard);
+		cards.add("Menu", menuCard);
+		cards.add("Diff", difficultyCard);
+		
+		// create listener for buttons
+		ActionListener listener = new GUI();
+		
+		//add listeners to static buttons
+		mainMenu.addActionListener(listener);
+		kids.addActionListener(listener);
+		easy.addActionListener(listener);
+		medium.addActionListener(listener);
+		hard.addActionListener(listener);
+		expert.addActionListener(listener);
+		back.addActionListener(listener);
+		play.addActionListener(listener);
+		pane.add(cards);
+		cardLayout.show(cards, "Menu");
+		frame.setSize(650, 600);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setVisible(true);
 	}
 	
 }

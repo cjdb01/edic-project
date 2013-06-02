@@ -4,6 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ *  A class of the Game Screen component
+ * @author aydinitil
+ *
+ */
 public class GameScreen extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
@@ -22,6 +27,9 @@ public class GameScreen extends JPanel{
 	private Difficulty difficulty;
 	private JPanel bottom;
 	
+	/**
+	 * Constructs the Game Screen
+	 */
 	public GameScreen (){
 		super();
 		clear = new JButton("Clear");
@@ -68,7 +76,7 @@ public class GameScreen extends JPanel{
 			public void actionPerformed(ActionEvent event)
 			{
 				grid.displayAssist();
-				remainingAssists.setText("Remaining Assists: " + grid.getAssists() + "     ");
+				remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "     ");
 			}
 		});
 		
@@ -126,9 +134,12 @@ public class GameScreen extends JPanel{
 		return difficulty;
 	}
 	
+	/**
+	 * Begins a new game
+	 */
 	public void playNewGame(){
 		grid.getNewGame(difficulty);
-		remainingAssists.setText("Remaining Assists: " + grid.getAssists() + "     ");
+		remainingAssists.setText("Remaining Assists: " + Integer.toString(grid.getAssists()) + "     ");
 		timer.start();
 		resumeButtonMode();
 	}
@@ -137,16 +148,26 @@ public class GameScreen extends JPanel{
 		this.difficulty = difficulty;
 	}
 	
+	/**
+	 * Adds the button to the button panel
+	 * @param button The Button to be added
+	 */
 	public void addButton(JButton button){
 		bottom.add(button);
 	}
 	
+	/**
+	 * Ends the current game
+	 */
 	public void stopGame(){
 		timer.restart();
 		timer.pause();
 		message.setText(" ");
 	}	
 	
+	/*
+	 * Hides and reveals buttons to represent pause mode
+	 */
 	private void pauseButtonMode(){
 		
 		clear.setVisible(false);
@@ -157,6 +178,9 @@ public class GameScreen extends JPanel{
 
 	}
 	
+	/*
+	 * Hides and reveals buttons to represent resume mode
+	 */
 	private void resumeButtonMode(){
 		clear.setVisible(true);
 		pause.setVisible(true);

@@ -6,17 +6,25 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
-
+/**
+ * A Textbox based Sudoku Grid class that stores a sudoku problem
+ * @author aydinitil
+ *
+ */
 public class SudokuGrid extends JPanel {
 
 	JTextField[][] fields;
-	Sudoku board;
+	Sudoku sudoku;
 	String[][] userBoard;
 	final int SIZE = 9;
 	final int FIELD_WIDTH = 2;
 	final Font LARGE_FONT = new Font("text", Font.PLAIN, 18); // font for numbers given in problem
 	private static final long serialVersionUID = 1L;
 
+	
+	/**
+	 * Constructs a SudokuGrid
+	 */
 	public SudokuGrid() {
 		super();
 		fields = new JTextField[SIZE][SIZE];
@@ -49,8 +57,11 @@ public class SudokuGrid extends JPanel {
 		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
+	/**
+	 * Displays an assist on the grid
+	 */
 	public void displayAssist() {
-		Vector3D hint = board.getAssist();
+		Vector3D hint = sudoku.getAssist();
 		if (hint != null) {
 			fields[hint.getX()][hint.getY()].setText(Integer.toString(hint
 					.getZ()));
@@ -60,10 +71,11 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 
+
 	public String getStatus() {
 
-		if (board.validate()) {
-			if(board.isComplete())
+		if (sudoku.validate()) {
+			if(sudoku.isComplete())
 				return "You WIN!";
 			else 
 			return "Everything is OK, keep going!";
@@ -72,6 +84,9 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 
+	/**
+	 * Clears all editable fields of the grid
+	 */
 	public void clear() {
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
@@ -84,15 +99,18 @@ public class SudokuGrid extends JPanel {
 
 	}
 
+	/**
+	 * Updates the sudoku to match the grid
+	 */
 	public void updateSudoku(){
 		for(int i = 0; i < SIZE; i++){
 			for(int j = 0; j < SIZE; j++){
 				String text = fields[i][j].getText();
-				if(isNumeric(text)){
+				if(isValid(text)){
 					if(text.length() == 1 && !text.equals(" ")){
-						board.setNode(i, j, Integer.parseInt(text));
+						sudoku.setNode(i, j, Integer.parseInt(text));
 					} else if(text.equals(" ") || text.length()==0){
-						board.setNode(i, j, 0);
+						sudoku.setNode(i, j, 0);
 					}
 				} else {
 					JOptionPane.showMessageDialog(this, "Please enter numbers!");
@@ -102,9 +120,13 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 	
+	/**
+	 * Begins a new sudoku problem 
+	 * @param difficulty The difficulty of the new problem
+	 */
 	public void getNewGame(Difficulty difficulty) {
-		this.board = Generator.constructBoard(difficulty);
-		Scanner st = new Scanner(board.getProblem());
+		this.sudoku = Generator.constructBoard(difficulty);
+		Scanner st = new Scanner(sudoku.getProblem());
 
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
@@ -123,6 +145,9 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 
+	/**
+	 * Sets the grid into paused mode
+	 */
 	public void showPause() {
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
@@ -139,6 +164,9 @@ public class SudokuGrid extends JPanel {
 		fields[4][7].setText("!");
 	}
 
+	/**
+	 * Sets the game into resume
+	 */
 	public void showResume() {
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
@@ -147,11 +175,18 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 	
-	public String getAssists(){
-		return Integer.toString(board.getRemainingAssists());
+	/**
+	 * Returns the amount of assists remaining
+	 * @return amount of assists remaining
+	 */
+	public int getAssists(){
+		return sudoku.getRemainingAssists();
 	}
 	
-	private boolean isNumeric(String string){
+	/*
+	 * Returns true if the string is a valid input for the grid
+	 */
+	private boolean isValid(String string){
 		for(int i = 0; i < string.length(); i++){
 			if(string.charAt(i) < '0' || string.charAt(i) > '9' || string.charAt(i) != ' '){
 				return true;
