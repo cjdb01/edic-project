@@ -10,6 +10,7 @@ public class Sudoku
     int m_assist;
     
     public final static int NOT_SET = 0;
+    public static enum Completeness { Complete, Incomplete, Invalid };
     
     public Sudoku(int[][] toSolve, final int[][] solved, int assist)
     {
@@ -19,7 +20,6 @@ public class Sudoku
     	m_assist = assist;
         m_state = new State(null, null, m_assist, null);
         
-        enum Completeness { Complete, Incomplete, Invalid };
         
         for (int i = 0; i < 9; ++i)
         {
@@ -97,16 +97,16 @@ public class Sudoku
             {
                 if (m_toSolve[i][j] == NOT_SET)
                 {
-                	completeness = Completenes.Incomplete;
+                	completeness = Completeness.Incomplete;
                 }
-                else if(m_toSolve[i][j] != m_solved[i][j] && m_toSolve != NOT_SET)
+                else if(m_toSolve[i][j] != m_solved[i][j] && m_toSolve[i][j] != NOT_SET)
                 {
                     return Completeness.Invalid;
                 }
             }
         }
 
-        return Completeness.Valid;
+        return completeness;
     }
     
     public Vector3D getAssist()

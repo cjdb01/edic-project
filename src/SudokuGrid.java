@@ -74,13 +74,12 @@ public class SudokuGrid extends JPanel {
 
 	public String getStatus() {
 
-		if (sudoku.validate()) {
-			if(sudoku.isComplete())
-				return "You WIN!";
-			else 
+		if (sudoku.validate() == Sudoku.Completeness.Invalid) {
+			return "Something is wrong!";
+		} else if(sudoku.validate() == Sudoku.Completeness.Incomplete){
 			return "Everything is OK, keep going!";
 		} else {
-			return "Something is wrong!";
+			return "YOU WIN!";	
 		}
 	}
 
