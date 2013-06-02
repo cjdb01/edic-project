@@ -104,6 +104,7 @@ public class GUI implements ActionListener {
 		diffPanel.setLayout(new GridLayout(6, 1));
 		menuPanel.setLayout(new GridLayout(3, 1));
 		
+		
 		diffPanel.add(kids);
 		diffPanel.add(easy);
 		diffPanel.add(medium);
@@ -119,15 +120,21 @@ public class GUI implements ActionListener {
 				System.exit(0);
 			}
 		});
-		
-		
 		menuPanel.add(play);
 		menuPanel.add(quit);
 		menuPanel.add(credits);
 		
+		JLabel blank = new JLabel("  bleh  ");
+		Font font = new Font("text", 25, Font.PLAIN);
+		blank.setFont(font);
+	
 		difficultyCard.add(diffPanel, BorderLayout.CENTER);
 		//add buttons to menu
 		menuCard.add(menuPanel, BorderLayout.CENTER);
+		JPanel other = new JPanel(new BorderLayout());
+		other.add(menuPanel, BorderLayout.CENTER);
+		other.add(blank, BorderLayout.SOUTH);
+		menuCard.add(other, BorderLayout.CENTER);
 		
 		//add cards
 		cards.add("GameScreen", gameCard);
