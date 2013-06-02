@@ -97,16 +97,16 @@ public class Sudoku
             {
                 if (m_toSolve[i][j] == NOT_SET)
                 {
-                	completeness = Completenes.Incomplete;
+                	completeness = Completeness.Incomplete;
                 }
-                else if(m_toSolve[i][j] != m_solved[i][j] && m_toSolve != NOT_SET)
+                else if(m_toSolve[i][j] != m_solved[i][j] && m_toSolve[i][j] != NOT_SET)
                 {
                     return Completeness.Invalid;
                 }
             }
         }
 
-        return Completeness.Valid;
+        return completeness;
     }
     
     public Vector3D getAssist()
