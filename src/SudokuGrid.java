@@ -98,8 +98,12 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 
+	/**
+	 * Checks whether the SudokuGrid is complete, incomplete, or invalid
+	 * 
+	 * @return a suitable message as a String.
+	 */
 	public String getStatus() {
-
 		if (board.validate() == Sudoku.Completeness.Invalid) {
 			return "Something is wrong!";
 		} else if(board.validate() == Sudoku.Completeness.Incomplete){
@@ -109,6 +113,10 @@ public class SudokuGrid extends JPanel {
 		}
 	}
 	
+	/**
+	 * Loads a SudokuGrid from a given Sudoku
+	 * @param sudoku the Sudoku specified
+	 */
 	public void load(Sudoku sudoku){
 		this.board = sudoku;
 		Scanner st = new Scanner(board.getProblem());
@@ -131,6 +139,7 @@ public class SudokuGrid extends JPanel {
 		}
 		st.close();
 	}
+	
 	/**
 	 * Clears all editable fields of the grid
 	 */
@@ -145,6 +154,7 @@ public class SudokuGrid extends JPanel {
 		}
 
 	}
+	
 	/**
 	 * Begins a new sudoku problem 
 	 * @param difficulty The difficulty of the new problem
@@ -194,6 +204,10 @@ public class SudokuGrid extends JPanel {
 		return board.getRemainingAssists();
 	}
 	
+	/**
+	 * Returns the Sudoku used by the instance of SudokuGrid
+	 * @return the Sudoku used by SudokuGrid
+	 */
 	public Sudoku getGame(){
 		return board;
 	}

@@ -15,15 +15,21 @@ public class TextDocumentListener implements DocumentListener{
 	
 	private JTextField textField;
 	
-	TextDocumentListener(JTextField textField){
+	public TextDocumentListener(JTextField textField){
 		this.textField = textField;
 	}
-
+	
+	/**
+	 * Does nothing
+	 */
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// does nothing
 	}
-
+	
+	/**
+	 * Resizes the text, and changes font color when more text is entered
+	 */
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		Document d = (Document)e.getDocument();
@@ -38,6 +44,9 @@ public class TextDocumentListener implements DocumentListener{
 		}
 	}
 
+	/**
+	 * Resizes text and changes font color appropriately when text is removed
+	 */
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		Document d = (Document)e.getDocument();

@@ -8,6 +8,12 @@ import java.util.LinkedList;
  *
  */
 public class Generator {
+	/**
+	 * Creates a new, random Sudoku according to the difficulty specified.
+	 * @param difficulty
+	 * @return the newly created Sudoku
+	 * @throws IllegalArgumentException
+	 */
 	public static Sudoku constructBoard(Difficulty difficulty) throws IllegalArgumentException {
 		int numSpaces;
 		int numHints;
