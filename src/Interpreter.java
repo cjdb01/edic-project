@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -29,10 +30,11 @@ public class Interpreter
         buffer.append("board = { " + game.getProblem() + " }\n");
         buffer.append("solution = { " + game.getSolution() + " }\n");
         buffer.append("editable = { " + game.getEditable() + "}");
+        PrintWriter writer = null;
         
         try
         {
-            PrintWriter writer = new PrintWriter(filename, "UTF-8");
+            writer = new PrintWriter(filename, "UTF-8");
             writer.print(buffer.toString());
             writer.close();
             
@@ -47,9 +49,17 @@ public class Interpreter
             
             writer.close();
         }
-        catch (Exception ex)
-        {
-            // Don't do anything here... there shouldn't be an exception
+        catch (FileNotFoundException e){
+        	System.err.println("Specified file could not be found: " + e.getMessage());
+        	System.exit(-1);
+        } catch (UnsupportedEncodingException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			System.exit(-1);
+		} finally {
+        	if(writer != null){
+        		writer.close();
+        	}
         }
     }
     
@@ -60,20 +70,25 @@ public class Interpreter
     public static ArrayList<String> retrieveSavedGames()
     {
         ArrayList<String> saveGames = new ArrayList<String>();
+        Scanner scanner = null;
         try
         {
-            Scanner scanner = new Scanner(new FileReader(saveMaster));
+            scanner = new Scanner(new FileReader(saveMaster));
             while (scanner.hasNext())
             {
                 saveGames.add(scanner.nextLine());
             }
             scanner.close();
         }
-        catch (FileNotFoundException ex)
-        {
-            // Just return an empty list...
+        catch (FileNotFoundException e){
+        	System.err.println("Specified file could not be found: " + e.getMessage());
+        	System.exit(-1);
+        } finally {
+        	if(scanner != null){
+        		scanner.close();
+        	}
         }
-        
+
         return saveGames;
     }
     
@@ -90,7 +105,7 @@ public class Interpreter
         int[][] solution = null;
         boolean[][] editable = null;
         
-        Scanner scanner;
+        Scanner scanner = null;
         StringTokenizer token;
         
         try
@@ -127,10 +142,14 @@ public class Interpreter
             
             scanner.close();
         }
-        catch (Exception ex)
-        {
-        	// Shouldn't be an exception here
-        }
+        catch (FileNotFoundException e) {
+			System.err.println("Specified file could not be found: " + e.getMessage());
+			System.exit(-1);
+		} finally {
+			if(scanner != null){
+				scanner.close();
+			}
+		}
         
         return new Sudoku(board, solution, editable, assists);
     }

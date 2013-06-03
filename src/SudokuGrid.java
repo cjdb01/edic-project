@@ -65,8 +65,8 @@ public class SudokuGrid extends JPanel {
 						.createLineBorder(Color.black));
 				fields[i][j].setFont(LARGE_FONT);
 				fields[i][j].setHorizontalAlignment(JTextField.CENTER);
-				//fields[i][j].getDocument().addDocumentListener(new 
-				//		TextDocumentListener(fields[i][j]));
+				fields[i][j].getDocument().addDocumentListener(new 
+						TextDocumentListener(fields[i][j]));
 				
 				if (j > 2 && j < 6) {
 					if (i < 3 || (i > 5 && i < 9)) {
@@ -111,23 +111,25 @@ public class SudokuGrid extends JPanel {
 	
 	public void load(Sudoku sudoku){
 		this.board = sudoku;
-		Scanner st = new Scanner(sudoku.getProblem());
+		Scanner st = new Scanner(board.getProblem());
 
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
 				int number = st.nextInt();
 				if (number != 0) {
-					fields[i][j].setText(Integer.toString(number));
+					fields[i][j].setValue(number);
 					fields[i][j].setEditable(false);
 					fields[i][j].setForeground(Color.BLACK);
 				} else {
-					fields[i][j].setText("");
+					fields[i][j].addPropertyChangeListener("value",new ValueListener(board, i, j));
+					fields[i][j].setValue(null);
 					fields[i][j].setEditable(true);
 					fields[i][j].setForeground(new Color(0 , 8, 235));
 				}
 				fields[i][j].setFont(LARGE_FONT);
 			}
 		}
+		st.close();
 	}
 	/**
 	 * Clears all editable fields of the grid
@@ -148,26 +150,7 @@ public class SudokuGrid extends JPanel {
 	 * @param difficulty The difficulty of the new problem
 	 */
 	public void getNewGame(Difficulty difficulty) {
-		this.board = Generator.constructBoard(difficulty);
-		Scanner st = new Scanner(board.getProblem());
-
-		for (int i = 0; i < SIZE; i++) {
-			for (int j = 0; j < SIZE; j++) {
-				int number = st.nextInt();
-				if (number != 0) {
-					fields[i][j].setValue(number);
-					fields[i][j].setEditable(false);
-					fields[i][j].setForeground(Color.BLACK);
-				} else {
-					fields[i][j].addPropertyChangeListener("value",new ValueListener(board, i, j));
-					fields[i][j].setValue(null);
-					fields[i][j].setEditable(true);
-					fields[i][j].setForeground(new Color(0 , 8, 235));
-				}
-				fields[i][j].setFont(LARGE_FONT);
-			}
-		}
-		st.close();
+		this.load(Generator.constructBoard(difficulty));
 	}
 
 	/**
