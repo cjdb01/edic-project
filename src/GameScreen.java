@@ -22,7 +22,7 @@ public class GameScreen extends JPanel{
 	private JButton assist;
 	private JButton newGame;
 	private JButton resume;
-	private JButton saveGame;
+	//private JButton saveGame;
 	private boolean paused;
 	private final TimerField timer;
 	private final SudokuGrid grid;
@@ -40,7 +40,7 @@ public class GameScreen extends JPanel{
 		assist = new JButton("Assist");
 		resume = new JButton("Resume");
 		newGame = new JButton("New Problem");
-		saveGame = new JButton("Save");
+		//saveGame = new JButton("Save");
 		grid = new SudokuGrid();
 		timer = new TimerField();
 		timer.setMaximumSize(new Dimension(200, 50));
@@ -54,13 +54,13 @@ public class GameScreen extends JPanel{
 			}
 		});
 		
-		saveGame.addActionListener(new
+		/*saveGame.addActionListener(new
 				ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
 				message.setText( "Saved: " + saveGame());
 			}
-		});
+		});*/
 		
 		pause.addActionListener(new
 				ActionListener(){
@@ -123,7 +123,7 @@ public class GameScreen extends JPanel{
 		bottom.add(clear);
 		bottom.add(validate);
 		bottom.add(pause);
-		bottom.add(saveGame);
+		//bottom.add(saveGame);
 		bottom.add(resume);
 		bottom.add(newGame);
 		
