@@ -29,6 +29,10 @@ public class GUI implements ActionListener {
 	public static void main(String[] args) {
 		constructAndShowGUI();
 	}
+	/**
+	 * Changes the card view and may change state depending on 
+	 * which card needs to be shown
+	 */
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == kids){
 			gameCard.setDifficulty(Difficulty.KIDS);
@@ -61,6 +65,10 @@ public class GUI implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Constructs an empty screen with the title "Sudoku"
+	 * @return
+	 */
 	private static JPanel constructScreen(){
 		
 		JPanel screen = new JPanel();
@@ -73,6 +81,9 @@ public class GUI implements ActionListener {
 		return screen;
 	}
 	
+	/**
+	 * Constructs and shows the GUI
+	 */
 	private static void constructAndShowGUI(){
 		JFrame frame = new JFrame("Interactive Sudoku");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
