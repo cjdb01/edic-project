@@ -1,3 +1,0 @@
-public enum Button{
-	MENU, QUIT, PLAY, CREDITS, KIDS, EASY, HARD, MEDIUM, EXPERT
-}

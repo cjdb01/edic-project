@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -46,7 +47,20 @@ public class SudokuGrid extends JPanel {
 		// paint each subgrid with a different colour
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
-				fields[i][j] = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(displayFormat), new NumberFormatter(displayFormat), new NumberFormatter(editFormat)));
+				fields[i][j] = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(displayFormat), new NumberFormatter(displayFormat), new NumberFormatter(editFormat))){
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					protected void processFocusEvent(final FocusEvent e){
+						if(e.getID() == FocusEvent.FOCUS_LOST){
+							if (getText() == null || getText().isEmpty()){  
+				                setValue(null);  
+				            }  
+				        }  
+				        super.processFocusEvent(e);  
+				    }  
+				};  
+				
 				fields[i][j].setBorder(BorderFactory
 						.createLineBorder(Color.black));
 				fields[i][j].setFont(LARGE_FONT);
