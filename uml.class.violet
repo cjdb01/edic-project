@@ -361,7 +361,7 @@
    <object class="com.horstmann.violet.ClassNode">
     <void property="attributes">
      <void property="text">
-      <string>TO DO</string>
+      <string> </string>
      </void>
     </void>
     <void property="methods">
@@ -380,19 +380,19 @@
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>4.934849373795174</double>
+      <double>26.934849373795174</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>85.97352134130738</double>
+      <double>148.9735213413074</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>4.934849373795174</double>
-     <double>85.97352134130738</double>
+     <double>26.934849373795174</double>
+     <double>148.9735213413074</double>
     </void>
    </object>
   </void>
@@ -400,12 +400,17 @@
    <object class="com.horstmann.violet.ClassNode">
     <void property="attributes">
      <void property="text">
-      <string>TO DO</string>
+      <string>- gameCard: GameScreen
+- mainMenu: JPanel
+- cardLayout: CardLayout
+</string>
      </void>
     </void>
     <void property="methods">
      <void property="text">
-      <string>TO DO</string>
+      <string>+ constructScreen()
++ constructAndShowGUI()
+</string>
      </void>
     </void>
     <void property="name">
@@ -474,6 +479,29 @@
     <void method="setLocation">
      <double>463.7409819219549</double>
      <double>304.9634200735407</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.DiagramLinkNode"/>
+   <object class="java.awt.geom.Point2D$Double" id="Point2D$Double10">
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>x</string>
+     <void method="set">
+      <object idref="Point2D$Double10"/>
+      <double>321.0</double>
+     </void>
+    </void>
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>y</string>
+     <void method="set">
+      <object idref="Point2D$Double10"/>
+      <double>348.0</double>
+     </void>
+    </void>
+    <void method="setLocation">
+     <double>321.0</double>
+     <double>348.0</double>
     </void>
    </object>
   </void>
