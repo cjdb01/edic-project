@@ -11,17 +11,17 @@ import javax.swing.text.NumberFormatter;
 
 /**
  * A Textbox based Sudoku Grid class that stores a sudoku problem
- * @author aydinitil
+ * @author aydinitil, Nat Jensen
  *
  */
 public class SudokuGrid extends JPanel {
 
-	JFormattedTextField[][] fields;
-	Sudoku board;
-	String[][] userBoard;
-	final int SIZE = 9;
-	final int FIELD_WIDTH = 2;
-	final Font LARGE_FONT = new Font("text", Font.PLAIN, 18); // font for numbers given in problem
+	private JFormattedTextField[][] fields;
+	private Sudoku board;
+	private String[][] userBoard;
+	private static final int SIZE = 9;
+	private static final int FIELD_WIDTH = 2;
+	private static final Font LARGE_FONT = new Font("text", Font.PLAIN, 18); // font for numbers given in problem
 	private static final long serialVersionUID = 1L;
 	private NumberFormat editFormat;
 	private NumberFormat displayFormat;
@@ -193,11 +193,6 @@ public class SudokuGrid extends JPanel {
 	public int getAssists(){
 		return board.getRemainingAssists();
 	}
-	
-	/*
-	 * Returns true if the string is a valid input for the grid
-	 */
-	
 	
 	public Sudoku getGame(){
 		return board;

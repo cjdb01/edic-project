@@ -13,7 +13,7 @@ import javax.swing.text.Document;
  */
 public class TextDocumentListener implements DocumentListener{
 	
-	JTextField textField;
+	private JTextField textField;
 	
 	TextDocumentListener(JTextField textField){
 		this.textField = textField;
@@ -21,8 +21,7 @@ public class TextDocumentListener implements DocumentListener{
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
-		
+		// does nothing
 	}
 
 	@Override

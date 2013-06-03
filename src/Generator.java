@@ -24,7 +24,7 @@ public class Generator {
 			break;
 		case MEDIUM:
 			numSpaces = 40;
-			numHints = 1;
+			numHints = 3;
 			break;
 		case HARD:
 			numSpaces = 50;
