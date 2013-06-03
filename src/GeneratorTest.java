@@ -1,4 +1,4 @@
-/*import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,7 +101,7 @@ public class GeneratorTest {
 //		}
 		
 		// testing generation of problem:
-/*		System.out.println("Generating solved sudoku");
+		System.out.println("Generating solved sudoku");
 		int solved[][] = {
 				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
 				{Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET, Sudoku.NOT_SET},
@@ -129,4 +129,4 @@ public class GeneratorTest {
 
 	}
 
-}*/
+}
