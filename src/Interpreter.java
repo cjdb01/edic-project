@@ -141,6 +141,8 @@ public class Interpreter
             }
             
             scanner.close();
+            
+            return new Sudoku(board, solution, editable, assists);
         }
         catch (FileNotFoundException e) {
 			System.err.println("Specified file could not be found: " + e.getMessage());
@@ -151,7 +153,7 @@ public class Interpreter
 			}
 		}
         
-        return new Sudoku(board, solution, editable, assists);
+        return null;
     }
     
     /**
